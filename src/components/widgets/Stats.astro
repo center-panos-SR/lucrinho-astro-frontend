@@ -1,0 +1,42 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  stats?: Array<{
+    amount: string;
+    title: string;
+  }>;
+}
+
+const { title, subtitle, stats = [] } = Astro.props;
+---
+
+<section class="px-4 py-16 mx-auto max-w-7xl lg:px-8 lg:py-20">
+  <div class="max-w-3xl mx-auto text-center mb-12">
+    {title && (
+      <h2 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4 dark:text-white">
+        {title}
+      </h2>
+    )}
+    {subtitle && (
+      <p class="text-xl text-muted dark:text-slate-400">
+        {subtitle}
+      </p>
+    )}
+  </div>
+  
+  <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
+    {stats.map(({ amount, title }) => (
+      <div class="text-center">
+        <div class="text-5xl md:text-6xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+          {amount}
+        </div>
+        <div class="text-lg text-gray-600 dark:text-gray-400">
+          {title}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+

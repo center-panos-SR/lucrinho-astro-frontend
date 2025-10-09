@@ -1,0 +1,86 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('post')).filter((post) => !post.data.draft);
+const sortedPosts = posts.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const metadata = {
+  title: 'Blog',
+  description: 'Últimos posts do blog',
+};
+---
+
+<Layout {...metadata}>
+  <section class="px-4 py-16 mx-auto max-w-6xl lg:px-8 lg:py-20">
+    <header class="max-w-3xl mx-auto text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4">
+        Blog
+      </h1>
+      <p class="text-xl text-muted">
+        Últimas notícias, tutoriais e atualizações
+      </p>
+    </header>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        sortedPosts.map((post) => (
+          <article class="flex flex-col rounded-lg shadow-lg overflow-hidden bg-white dark:bg-slate-800 hover:shadow-xl transition-shadow">
+            {post.data.image && (
+              <a href={`/blog/${post.slug}`}>
+                <img
+                  src={post.data.image}
+                  alt={post.data.title}
+                  class="w-full h-48 object-cover"
+                  loading="lazy"
+                />
+              </a>
+            )}
+            <div class="flex flex-col flex-1 p-6">
+              <div class="flex items-center gap-2 text-sm text-muted mb-2">
+                <time datetime={post.data.publishDate.toISOString()}>
+                  {post.data.publishDate.toLocaleDateString('pt-BR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+                {post.data.category && (
+                  <>
+                    <span>·</span>
+                    <span class="text-blue-600 dark:text-blue-400">{post.data.category}</span>
+                  </>
+                )}
+              </div>
+              <h2 class="text-xl font-bold mb-2 dark:text-white">
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  {post.data.title}
+                </a>
+              </h2>
+              {post.data.description && (
+                <p class="text-muted dark:text-slate-400 mb-4 flex-1">
+                  {post.data.description}
+                </p>
+              )}
+              <div class="flex items-center justify-between">
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                >
+                  Ler mais →
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
+
+

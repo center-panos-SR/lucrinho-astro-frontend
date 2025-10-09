@@ -1,0 +1,75 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Features from '~/components/widgets/Features.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Serviços',
+  description: 'Conheça nossos serviços',
+};
+---
+
+<Layout {...metadata}>
+  <section class="px-4 py-16 mx-auto max-w-6xl lg:px-8 lg:py-20">
+    <div class="max-w-3xl mx-auto text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4 dark:text-white">
+        Nossos Serviços
+      </h1>
+      <p class="text-xl text-muted">
+        Soluções completas para o seu negócio
+      </p>
+    </div>
+  </section>
+
+  <Features
+    tagline="Serviços"
+    title="O que oferecemos"
+    subtitle="Soluções personalizadas para suas necessidades"
+    items={[
+      {
+        title: '💻 Desenvolvimento Web',
+        description: 'Criação de sites e aplicações web modernas e responsivas.',
+        icon: '💻',
+      },
+      {
+        title: '📱 Aplicativos Mobile',
+        description: 'Desenvolvimento de apps para iOS e Android.',
+        icon: '📱',
+      },
+      {
+        title: '🎨 Design UI/UX',
+        description: 'Interfaces intuitivas e experiências memoráveis.',
+        icon: '🎨',
+      },
+      {
+        title: '🚀 Otimização',
+        description: 'Performance e SEO de alto nível.',
+        icon: '🚀',
+      },
+      {
+        title: '☁️ Cloud Solutions',
+        description: 'Infraestrutura escalável e segura.',
+        icon: '☁️',
+      },
+      {
+        title: '🔧 Manutenção',
+        description: 'Suporte contínuo e atualizações.',
+        icon: '🔧',
+      },
+    ]}
+  />
+
+  <CallToAction
+    title="Pronto para começar seu projeto?"
+    subtitle="Entre em contato e vamos conversar sobre suas ideias."
+    actions={[
+      {
+        text: 'Falar Conosco',
+        href: '/contato',
+        variant: 'primary',
+      },
+    ]}
+  />
+</Layout>
+
+

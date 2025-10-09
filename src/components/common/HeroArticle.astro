@@ -1,0 +1,133 @@
+---
+export interface Props {
+  title: string;
+  excerpt?: string;
+  author: string;
+  timeAgo: string;
+  imageUrl: string;
+  href: string;
+  size?: 'large' | 'medium';
+}
+
+const {
+  title,
+  excerpt,
+  author,
+  timeAgo,
+  imageUrl,
+  href,
+  size = 'large'
+} = Astro.props;
+---
+
+<a href={href} class="hero-article">
+  <div class="article-image-wrapper">
+    <img
+      src={imageUrl}
+      alt={title}
+      class="article-image"
+      loading="lazy"
+    />
+  </div>
+  <div class="article-content">
+    <h2 class={`article-title ${size === 'large' ? 'article-title-large' : 'article-title-medium'}`}>
+      {title}
+    </h2>
+    {excerpt && (
+      <p class="article-excerpt">{excerpt}</p>
+    )}
+    <div class="article-meta">
+      <span>Por {author}</span>
+      <span>•</span>
+      <span>{timeAgo}</span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .hero-article {
+    display: block;
+    background: var(--color-card);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    text-decoration: none;
+  }
+
+  .hero-article:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .article-image-wrapper {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .article-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .hero-article:hover .article-image {
+    transform: scale(1.05);
+  }
+
+  .article-content {
+    padding: 1.5rem;
+  }
+
+  .article-title {
+    font-weight: 700;
+    text-wrap: balance;
+    margin-bottom: 0.75rem;
+    color: var(--color-foreground);
+    transition: color 0.3s ease;
+  }
+
+  .hero-article:hover .article-title {
+    color: var(--color-primary);
+  }
+
+  .article-title-large {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .article-title-medium {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .article-excerpt {
+    color: var(--color-muted-foreground);
+    text-wrap: pretty;
+    line-height: 1.625;
+    margin-bottom: 1rem;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-muted-foreground);
+  }
+
+  @media (min-width: 768px) {
+    .article-title-large {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+    }
+
+    .article-title-medium {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+  }
+</style>
+
+

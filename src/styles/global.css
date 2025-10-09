@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Trenda';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/src/assets/font/Trenda Semibold.otf') format('opentype');
+}
+
+@layer base {
+  :root {
+    --color-primary: 59 130 246;
+    --color-secondary: 139 92 246;
+    
+    /* Color scheme for financial news site */
+    --background: oklch(0.99 0 0);
+    --foreground: oklch(0.2 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.2 0 0);
+    --primary: oklch(0.35 0.15 265);
+    --primary-foreground: oklch(0.99 0 0);
+    --muted-foreground: oklch(0.5 0 0);
+    --border: oklch(0.9 0.005 265);
+    --sidebar: oklch(0.94 0.015 265);
+    --sidebar-foreground: oklch(0.2 0 0);
+    --sidebar-primary: oklch(0.35 0.15 265);
+    --sidebar-border: oklch(0.88 0.01 265);
+    --radius: 0.5rem;
+    
+    /* Mapped colors */
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-border: var(--border);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-border: var(--sidebar-border);
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply font-sans;
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg font-medium text-center text-base transition duration-200 ease-in-out;
+    @apply px-6 py-3;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700;
+  }
+}
+
+@layer utilities {
+  .text-default {
+    @apply text-gray-900 dark:text-slate-300;
+  }
+
+  .text-muted {
+    @apply text-gray-600 dark:text-slate-400;
+  }
+
+  .bg-page {
+    @apply bg-white dark:bg-slate-900;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}

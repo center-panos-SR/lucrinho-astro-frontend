@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <rect width="480" height="320" fill="#2c5282"/>
+  <g opacity="0.6">
+    <rect x="160" y="80" width="160" height="120" rx="8" fill="none" stroke="#90cdf4" stroke-width="3"/>
+    <path d="M200,120 L210,110 L230,130 L260,100" fill="none" stroke="#90cdf4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="240" y="170" font-family="Arial, sans-serif" font-size="18" fill="#90cdf4" text-anchor="middle">+</text>
+  </g>
+  <text x="240" y="270" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle" opacity="0.8">Medicare Insurance</text>
+</svg>
+
+

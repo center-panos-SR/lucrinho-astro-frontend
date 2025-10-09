@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <rect width="480" height="320" fill="#22543d"/>
+  <g opacity="0.6">
+    <path d="M150,180 L200,150 L250,160 L300,120 L350,130" fill="none" stroke="#48bb78" stroke-width="4"/>
+    <path d="M150,200 L200,190 L250,195 L300,180 L350,185" fill="none" stroke="#68d391" stroke-width="4"/>
+    <text x="240" y="100" font-family="Arial, sans-serif" font-size="32" fill="#48bb78" text-anchor="middle">NVDA</text>
+  </g>
+  <text x="240" y="270" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle" opacity="0.8">Tech Stocks</text>
+</svg>
+
+

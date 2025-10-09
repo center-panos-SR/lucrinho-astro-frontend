@@ -1,0 +1,79 @@
+---
+import { footerData } from '~/navigation.js';
+
+const { links = [], secondaryLinks = [] } = footerData;
+---
+
+<footer class="border-t border-gray-200 dark:border-slate-800 not-prose" style="background-color: #201D1E;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-12 gap-4 gap-y-8 sm:gap-8 py-8 md:py-12">
+      <!-- Logo and Secondary Links -->
+      <div class="col-span-12 lg:col-span-4">
+        <div class="mb-2">
+          <a class="inline-block hover:opacity-80 transition-opacity" href="/">
+            <img 
+              src="/LogoLucrinho tema escuro.png" 
+              alt="Lucrinho" 
+              width="133" 
+              height="24"
+              class="logo-lucrinho-footer"
+            />
+          </a>
+        </div>
+        <div class="text-sm space-x-2" style="color: #ffffff;">
+          {secondaryLinks.map(({ text, href }, index) => (
+            <>
+              {index > 0 && <span>·</span>}
+              <a
+                class="hover:underline transition duration-150 ease-in-out"
+                style="color: #ffffff;"
+                href={href}
+              >
+                {text}
+              </a>
+            </>
+          ))}
+        </div>
+      </div>
+
+      <!-- Footer Links -->
+      {links.map(({ title, links }) => (
+        <div class="col-span-6 md:col-span-3 lg:col-span-2">
+          <div class="font-medium mb-2" style="color: #ffffff;">{title}</div>
+          {links && (
+            <ul class="text-sm space-y-2">
+              {links.map(({ text, href }) => (
+                <li>
+                  <a
+                    class="hover:underline transition duration-150 ease-in-out"
+                    style="color: #ffffff;"
+                    href={href}
+                  >
+                    {text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</footer>
+
+<style>
+  .logo-lucrinho-footer {
+    display: block;
+    width: 133px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  @media (max-width: 768px) {
+    .logo-lucrinho-footer {
+      width: 110px;
+      height: auto;
+    }
+  }
+</style>

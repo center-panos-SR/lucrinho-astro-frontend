@@ -1,0 +1,165 @@
+---
+import HeroArticle from '../common/HeroArticle.astro';
+import RelatedLinks from '../common/RelatedLinks.astro';
+import RateCard from '../common/RateCard.astro';
+---
+
+<section class="hero-section">
+  <div class="container mx-auto px-4 py-8">
+    {/* Hero Section */}
+    <div class="grid lg:grid-cols-3 gap-8 mb-12">
+      {/* Main Articles */}
+      <div class="lg:col-span-2 grid md:grid-cols-2 gap-8">
+        {/* Primary Article */}
+        <div class="md:col-span-2 lg:col-span-1">
+          <HeroArticle
+            title="Por que analistas de Wall Street dizem que não estamos em uma bolha de IA... ainda"
+            author="Colin Laidley"
+            timeAgo="1 hora atrás"
+            imageUrl="/placeholder-stock-market.jpg"
+            href="/artigo/bolha-ia"
+            size="large"
+          />
+          <RelatedLinks
+            links={[
+              {
+                title: "As ações se recuperaram e fecharam em máximas recordes na quarta-feira",
+                href: "/artigo/acoes-recordes",
+              },
+              {
+                title: "Ouro sobe ainda mais acima de US$ 4.000 — a alta pode continuar?",
+                href: "/artigo/ouro-4000",
+              },
+              {
+                title: 'Ansiedade alimenta a alta do ouro: entendendo o "comércio da desvalorização"',
+                href: "/artigo/comercio-desvalorizacao",
+              },
+            ]}
+          />
+        </div>
+
+        {/* Secondary Article */}
+        <div class="md:col-span-2 lg:col-span-1">
+          <HeroArticle
+            title="Fed disposto a cortar taxas, mas a inflação pode atrapalhar os planos"
+            excerpt="Se você está esperando as taxas de juros caírem, provavelmente não ficará decepcionado, mas a inflação pode facilmente estragar a festa."
+            author="Diccon Hyatt"
+            timeAgo="14 horas atrás"
+            imageUrl="/placeholder-federal-reserve.jpg"
+            href="/artigo/fed-taxas"
+            size="medium"
+          />
+          <RelatedLinks
+            links={[
+              {
+                title: "Casa Branca pode reter salários atrasados de 750.000 trabalhadores em licença",
+                href: "/artigo/casa-branca-salarios",
+              },
+              {
+                title: "A economia superou as paralisações anteriores. Será que desta vez será diferente?",
+                href: "/artigo/economia-paralisacoes",
+              },
+              {
+                title: "Compradores que só pagam à vista dominam o mercado imobiliário",
+                href: "/artigo/compradores-vista",
+              },
+            ]}
+          />
+        </div>
+      </div>
+
+      {/* Sidebar - Financial Products */}
+      <div class="lg:col-span-1">
+        <div class="sidebar-card">
+          <h2 class="text-xl font-bold mb-6 text-balance">Encontre os melhores produtos financeiros</h2>
+          <div class="space-y-4">
+            <RateCard rate="5,00%" title="Ganhe 5,00% APY enquanto você pode" href="/produtos/poupanca" />
+            <RateCard
+              rate="4,45%"
+              title="Garanta agora a melhor taxa de CD de 6 meses"
+              href="/produtos/cd-6-meses"
+            />
+            <RateCard
+              rate="4,32%"
+              title="Ganhe uma taxa de CD superior por 1 ano, apesar dos cortes de taxas"
+              href="/produtos/cd-1-ano"
+            />
+            <RateCard rate="4,25%" title="Garanta o melhor CD de 2 anos até 2027" href="/produtos/cd-2-anos" />
+          </div>
+
+          <div class="sidebar-links">
+            <h3 class="text-sm font-semibold mb-4">NOSSAS PRINCIPAIS ESCOLHAS PARA OUTUBRO:</h3>
+            <ul class="space-y-3">
+              <li>
+                <a href="/produtos/melhores-cds" class="sidebar-link">
+                  <span class="sidebar-bullet"></span>
+                  Melhores taxas de CD de hoje
+                </a>
+              </li>
+              <li>
+                <a href="/produtos/hipotecas" class="sidebar-link">
+                  <span class="sidebar-bullet"></span>
+                  As melhores taxas de hipoteca de hoje
+                </a>
+              </li>
+              <li>
+                <a href="/produtos/corretoras" class="sidebar-link">
+                  <span class="sidebar-bullet"></span>
+                  Melhores corretoras e plataformas de negociação
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    min-height: calc(100vh - 200px);
+  }
+
+  .sidebar-card {
+    background: var(--color-sidebar);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    position: sticky;
+    top: 6rem;
+  }
+
+  .sidebar-links {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-sidebar-border);
+  }
+
+  .sidebar-link {
+    font-size: 0.875rem;
+    color: var(--color-sidebar-foreground);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .sidebar-link:hover {
+    color: var(--color-sidebar-primary);
+  }
+
+  .sidebar-bullet {
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 50%;
+    background: var(--color-sidebar-primary);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .sidebar-card {
+      position: static;
+    }
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import { fetchAPI } from "../lib/api";
+
+const books = await fetchAPI("books");
+
+const metadata = {
+  title: 'Livros',
+  description: 'Explore nossa coleção de livros',
+};
+---
+
+<Layout {...metadata}>
+  <section class="px-4 py-16 mx-auto max-w-6xl lg:px-8 lg:py-20">
+    <header class="max-w-3xl mx-auto text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4 dark:text-white">
+        Livros
+      </h1>
+      <p class="text-xl text-muted">
+        Explore nossa coleção de livros
+      </p>
+    </header>
+
+    {books && books.length > 0 ? (
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {books.map(book => (
+          <article class="flex flex-col rounded-lg shadow-lg overflow-hidden bg-white dark:bg-slate-800 hover:shadow-xl transition-shadow p-6">
+            <h2 class="text-xl font-bold mb-2 dark:text-white">
+              {book.attributes.title}
+            </h2>
+            {book.attributes.description && (
+              <p class="text-muted dark:text-slate-400">
+                {book.attributes.description}
+              </p>
+            )}
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="text-center">
+        <p class="text-xl text-muted">Nenhum livro disponível no momento.</p>
+      </div>
+    )}
+  </section>
+</Layout>

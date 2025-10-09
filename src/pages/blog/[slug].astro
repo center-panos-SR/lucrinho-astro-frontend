@@ -1,0 +1,93 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('post');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'post'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const metadata = {
+  title: post.data.title,
+  description: post.data.description,
+  image: post.data.image,
+};
+---
+
+<Layout {...metadata}>
+  <article class="px-4 py-16 mx-auto max-w-4xl lg:px-8 lg:py-20">
+    <header class="mb-8">
+      {
+        post.data.image && (
+          <img
+            src={post.data.image}
+            alt={post.data.title}
+            class="w-full h-64 md:h-96 object-cover rounded-lg mb-8"
+          />
+        )
+      }
+      
+      <div class="flex items-center gap-2 text-sm text-muted mb-4">
+        <time datetime={post.data.publishDate.toISOString()}>
+          {
+            post.data.publishDate.toLocaleDateString('pt-BR', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+          }
+        </time>
+        {
+          post.data.category && (
+            <>
+              <span>·</span>
+              <span class="text-blue-600 dark:text-blue-400">{post.data.category}</span>
+            </>
+          )
+        }
+        <span>·</span>
+        <span>{post.data.author}</span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4 dark:text-white">
+        {post.data.title}
+      </h1>
+
+      {
+        post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-4">
+            {post.data.tags.map((tag) => (
+              <span class="px-3 py-1 text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    <div class="prose prose-lg dark:prose-invert max-w-none">
+      <Content />
+    </div>
+
+    <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <a
+        href="/blog"
+        class="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+      >
+        ← Voltar para o blog
+      </a>
+    </footer>
+  </article>
+</Layout>
+

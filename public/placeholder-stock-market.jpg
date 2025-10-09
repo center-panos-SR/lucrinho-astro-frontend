@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#1a1a2e"/>
+  <g opacity="0.3">
+    <path d="M100,400 L200,350 L300,380 L400,320 L500,360 L600,300 L700,340 L800,280 L900,320 L1000,260 L1100,300" 
+          fill="none" stroke="#4a90e2" stroke-width="3"/>
+    <path d="M100,450 L200,430 L300,460 L400,420 L500,445 L600,410 L700,435 L800,395 L900,420 L1000,380 L1100,405" 
+          fill="none" stroke="#50c878" stroke-width="3"/>
+  </g>
+  <text x="600" y="337.5" font-family="Arial, sans-serif" font-size="48" fill="#ffffff" text-anchor="middle" opacity="0.7">
+    Mercado de Ações
+  </text>
+</svg>
+
+

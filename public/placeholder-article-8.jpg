@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <rect width="480" height="320" fill="#1a365d"/>
+  <g opacity="0.6">
+    <path d="M240,180 L220,200 L240,220 L260,200 Z" fill="none" stroke="#63b3ed" stroke-width="3"/>
+    <path d="M240,100 L240,180 M200,140 L240,100 L280,140" fill="none" stroke="#63b3ed" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="240" cy="220" r="8" fill="#63b3ed"/>
+  </g>
+  <text x="240" y="270" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle" opacity="0.8">Space Tech</text>
+</svg>
+
+

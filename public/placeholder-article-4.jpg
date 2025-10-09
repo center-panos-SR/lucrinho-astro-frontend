@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <rect width="480" height="320" fill="#2c5282"/>
+  <g opacity="0.6">
+    <path d="M100,200 L150,180 L200,190 L250,150 L300,160 L350,120" fill="none" stroke="#63b3ed" stroke-width="4"/>
+    <circle cx="250" cy="150" r="8" fill="#63b3ed"/>
+    <circle cx="350" cy="120" r="8" fill="#63b3ed"/>
+  </g>
+  <text x="240" y="270" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle" opacity="0.8">S&P 500 + AI</text>
+</svg>
+
+

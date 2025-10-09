@@ -1,0 +1,88 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  content?: string;
+  items?: Array<{
+    title: string;
+    description?: string;
+    icon?: string;
+  }>;
+  image?: any;
+  isReversed?: boolean;
+}
+
+const {
+  title,
+  subtitle,
+  tagline,
+  content,
+  items = [],
+  image,
+  isReversed = false,
+} = Astro.props;
+---
+
+<section class="px-4 py-16 mx-auto max-w-7xl lg:px-8 lg:py-20">
+  <div class={`flex flex-col gap-8 md:gap-12 items-center ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+    <div class="flex-1 space-y-6">
+      {tagline && (
+        <p class="text-base text-blue-600 dark:text-blue-200 font-semibold tracking-wide uppercase">
+          {tagline}
+        </p>
+      )}
+      {title && (
+        <h2 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter dark:text-white">
+          <Fragment set:html={title} />
+        </h2>
+      )}
+      {subtitle && (
+        <p class="text-xl text-muted dark:text-slate-400">
+          {subtitle}
+        </p>
+      )}
+      {content && (
+        <div class="text-muted dark:text-slate-400 prose prose-lg dark:prose-invert max-w-none">
+          <Fragment set:html={content} />
+        </div>
+      )}
+      {items.length > 0 && (
+        <div class="space-y-4">
+          {items.map(({ title, description, icon }) => (
+            <div class="flex gap-3">
+              {icon && (
+                <div class="flex-shrink-0 text-2xl">
+                  <Fragment set:html={icon} />
+                </div>
+              )}
+              <div>
+                <h3 class="text-lg font-bold dark:text-white">{title}</h3>
+                {description && (
+                  <p class="text-muted dark:text-slate-400">{description}</p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+    
+    {image && (
+      <div class="flex-1">
+        {typeof image === 'string' ? (
+          <img 
+            src={image} 
+            alt={title || 'Content image'} 
+            class="w-full rounded-lg shadow-lg"
+            loading="lazy"
+          />
+        ) : (
+          <Fragment set:html={image} />
+        )}
+      </div>
+    )}
+  </div>
+</section>
+
+

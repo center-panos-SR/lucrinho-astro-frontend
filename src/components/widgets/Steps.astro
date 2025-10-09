@@ -1,0 +1,78 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  items?: Array<{
+    title: string;
+    description: string;
+    icon?: string;
+  }>;
+  image?: any;
+}
+
+const { title, subtitle, tagline, items = [], image } = Astro.props;
+---
+
+<section class="px-4 py-16 mx-auto max-w-7xl lg:px-8 lg:py-20">
+  {(tagline || title || subtitle) && (
+    <div class="mb-10 md:mx-auto text-center md:mb-12 max-w-3xl">
+      {tagline && (
+        <p class="text-base text-blue-600 dark:text-blue-200 font-semibold tracking-wide uppercase">
+          {tagline}
+        </p>
+      )}
+      {title && (
+        <h2 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4 font-heading dark:text-white">
+          {title}
+        </h2>
+      )}
+      {subtitle && (
+        <p class="max-w-3xl mx-auto sm:text-center text-xl text-muted dark:text-slate-400">
+          {subtitle}
+        </p>
+      )}
+    </div>
+  )}
+  
+  <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+    <div class="flex-1 space-y-8">
+      {items.map(({ title, description, icon }, index) => (
+        <div class="flex gap-4">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white text-xl font-bold">
+              {icon || (index + 1)}
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-2 dark:text-white">{title}</h3>
+            <p class="text-muted dark:text-slate-400">{description}</p>
+          </div>
+        </div>
+      ))}
+      <div class="flex gap-4">
+        <div class="flex-shrink-0">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600 text-white text-xl font-bold">
+            ✓
+          </div>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-green-600 dark:text-green-400">Ready!</h3>
+        </div>
+      </div>
+    </div>
+    
+    {image && (
+      <div class="flex-1">
+        <img 
+          src={image} 
+          alt="Steps illustration" 
+          class="w-full rounded-lg shadow-lg"
+          loading="lazy"
+        />
+      </div>
+    )}
+  </div>
+</section>
+
+

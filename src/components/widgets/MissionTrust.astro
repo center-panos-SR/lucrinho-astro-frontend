@@ -1,0 +1,141 @@
+---
+// MissionTrust - Seção Nossa Missão e Conselho de Revisão Financeira
+
+const reviewers = [
+  {
+    name: "Samantha Silberstein",
+    credentials: "CFP, CFA, CSLP®",
+    imageUrl: "/reviewer-samantha-silberstein.jpg",
+    href: "/samantha-silberstein-5115118",
+  },
+  {
+    name: "Anthony Battle",
+    credentials: "CFP, ChFC, CLU, RICP, AFC, CRC",
+    imageUrl: "/reviewer-anthony-battle.jpg",
+    href: "/anthony-battle-5090255",
+  },
+  {
+    name: "Marguerita Cheng",
+    credentials: "CFP, CRPC, RICP, CSRIC",
+    imageUrl: "/reviewer-marguerita-cheng.jpg",
+    href: "/marguerita-cheng-4684136",
+  },
+  {
+    name: "Julius Mansa",
+    credentials: "MFin",
+    imageUrl: "/reviewer-julius-mansa.jpg",
+    href: "/julius-mansa-4799781",
+  },
+];
+---
+
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Left Column - 75% -->
+      <div class="lg:w-3/4 lg:pr-8 lg:border-r border-[#201D1E]">
+        <!-- Mission Section -->
+        <div class="mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">Nossa Missão</h2>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            O Lucrinho foi fundado com a missão de ajudar as pessoas a melhorar seus resultados
+            financeiros. Nossos leitores vêm de todo o Brasil e de todas as esferas da vida. Alguns estão aprendendo
+            sobre dinheiro e investimentos pela primeira vez, enquanto outros são investidores experientes,
+            proprietários de empresas, profissionais, consultores financeiros e executivos que buscam melhorar seus
+            conhecimentos e habilidades. Não importa quem você seja, estamos aqui para ajudar.
+          </p>
+        </div>
+
+        <!-- Inclusive Content Section -->
+        <div class="bg-gray-100 rounded-lg p-8">
+          <h3 class="text-2xl font-bold mb-4 text-gray-900">Conteúdo Inclusivo</h3>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            A educação financeira precisa servir leitores de todas as origens. Aspiramos que nosso conteúdo, equipe,
+            colaboradores e organizações parceiras promovam o empoderamento financeiro de pessoas de todas as
+            etnias, gêneros, gerações, orientações sexuais, habilidades e origens socioeconômicas, particularmente
+            aqueles que podem estar em desvantagem.
+          </p>
+          <a
+            href="/inclusive-content"
+            class="text-blue-700 hover:text-blue-800 font-semibold inline-flex items-center gap-2 transition-colors"
+          >
+            Leia mais detalhes
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column - 25% -->
+      <div class="lg:w-1/4 lg:pl-8">
+        <!-- Financial Review Board Section -->
+        <div>
+          <h2 class="text-2xl font-bold mb-4 text-gray-900">Conselho de Revisão Financeira</h2>
+          <p class="text-sm text-gray-700 leading-relaxed mb-6">
+            Nossos especialistas financeiros oferecem mais de 250 anos de experiência combinada para garantir que
+            estamos fornecendo aos leitores as informações mais precisas.
+          </p>
+
+          <div class="space-y-4 mb-6">
+            {reviewers.map((reviewer) => (
+              <a
+                href={reviewer.href}
+                class="reviewer-card group flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-200 hover:shadow-md hover:border-blue-700 transition-all"
+              >
+                <div class="w-16 h-16 flex-shrink-0 rounded-full overflow-hidden bg-gray-200">
+                  <img
+                    src={reviewer.imageUrl}
+                    alt={reviewer.name}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-bold text-sm mb-0.5 text-gray-900 group-hover:text-blue-700 transition-colors truncate">
+                    {reviewer.name}
+                  </h3>
+                  <p class="text-xs text-gray-600 line-clamp-2">{reviewer.credentials}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <!-- CTA -->
+          <a
+            href="/conselho-revisao-financeira"
+            class="text-blue-700 hover:text-blue-800 font-semibold text-sm transition-colors inline-flex items-center gap-1"
+          >
+            Conheça o Conselho
+            <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviewer-card img {
+    transition: transform 0.3s ease;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (max-width: 1023px) {
+    .lg\:border-r {
+      border-right: none;
+      border-bottom: 1px solid #201D1E;
+      padding-bottom: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
+</style>
+

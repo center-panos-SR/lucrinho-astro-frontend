@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <rect width="480" height="320" fill="#744210"/>
+  <g opacity="0.6">
+    <circle cx="200" cy="140" r="30" fill="none" stroke="#f6ad55" stroke-width="3"/>
+    <circle cx="280" cy="140" r="30" fill="none" stroke="#f6ad55" stroke-width="3"/>
+    <path d="M200,110 L200,170 M280,110 L280,170" stroke="#f6ad55" stroke-width="3"/>
+  </g>
+  <text x="240" y="270" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle" opacity="0.8">Economic News</text>
+</svg>
+
+

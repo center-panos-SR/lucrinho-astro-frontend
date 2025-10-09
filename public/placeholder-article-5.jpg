@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <rect width="480" height="320" fill="#553c9a"/>
+  <g opacity="0.6">
+    <rect x="180" y="80" width="120" height="100" rx="5" fill="none" stroke="#9f7aea" stroke-width="3"/>
+    <circle cx="220" cy="120" r="15" fill="none" stroke="#9f7aea" stroke-width="2"/>
+    <path d="M200,150 L210,160 L230,140" fill="none" stroke="#9f7aea" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="240" y="270" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle" opacity="0.8">Education Grant</text>
+</svg>
+
+

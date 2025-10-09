@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#2c3e50"/>
+  <g opacity="0.4">
+    <circle cx="300" cy="337.5" r="120" fill="none" stroke="#3498db" stroke-width="3"/>
+    <circle cx="600" cy="337.5" r="120" fill="none" stroke="#3498db" stroke-width="3"/>
+    <circle cx="900" cy="337.5" r="120" fill="none" stroke="#3498db" stroke-width="3"/>
+    <path d="M420,337.5 L480,337.5 M720,337.5 L780,337.5" stroke="#3498db" stroke-width="3"/>
+  </g>
+  <text x="600" y="337.5" font-family="Arial, sans-serif" font-size="48" fill="#ffffff" text-anchor="middle" opacity="0.8">
+    Federal Reserve
+  </text>
+</svg>
+
+

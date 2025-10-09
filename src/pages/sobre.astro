@@ -1,0 +1,81 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Sobre',
+  description: 'Saiba mais sobre o Lucrinho',
+};
+---
+
+<Layout {...metadata}>
+  <section class="px-4 py-16 mx-auto max-w-6xl lg:px-8 lg:py-20">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-8 dark:text-white">
+        Sobre o Lucrinho
+      </h1>
+      
+      <div class="prose prose-lg dark:prose-invert max-w-none">
+        <p>
+          Bem-vindo ao <strong>Lucrinho</strong>, um site moderno construído com as tecnologias
+          mais recentes e poderosas da web.
+        </p>
+
+        <h2>Nossa Tecnologia</h2>
+        <p>
+          Utilizamos <strong>Astro 5</strong>, um framework que combina o melhor da renderização
+          estática com componentes dinâmicos quando necessário. Isso significa:
+        </p>
+
+        <ul>
+          <li><strong>Performance máxima</strong> - Páginas super rápidas</li>
+          <li><strong>SEO otimizado</strong> - Melhor ranqueamento nos buscadores</li>
+          <li><strong>Experiência moderna</strong> - Design responsivo e acessível</li>
+          <li><strong>Manutenção fácil</strong> - Código limpo e organizado</li>
+        </ul>
+
+        <h2>Design</h2>
+        <p>
+          O design é baseado no tema <strong>AstroWind</strong>, conhecido por sua flexibilidade
+          e beleza. Utilizamos <strong>Tailwind CSS 4</strong> para estilização, permitindo
+          customizações rápidas e consistentes.
+        </p>
+
+        <h2>Recursos</h2>
+        <ul>
+          <li>Blog integrado com suporte a Markdown e MDX</li>
+          <li>Sistema de categorias e tags</li>
+          <li>Modo escuro automático</li>
+          <li>Sitemap e RSS feed</li>
+          <li>Imagens otimizadas</li>
+          <li>Formulários de contato</li>
+        </ul>
+
+        <h2>Próximos Passos</h2>
+        <p>
+          Estamos constantemente melhorando e adicionando novos recursos. Fique ligado
+          no nosso <a href="/blog">blog</a> para atualizações!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction
+    title="Quer saber mais?"
+    subtitle="Entre em contato conosco para descobrir como podemos ajudar"
+    actions={[
+      {
+        text: 'Entrar em Contato',
+        href: '/contato',
+        variant: 'primary',
+      },
+      {
+        text: 'Ver Blog',
+        href: '/blog',
+        variant: 'secondary',
+      },
+    ]}
+  />
+</Layout>
+
+

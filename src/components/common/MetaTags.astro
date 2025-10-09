@@ -1,0 +1,57 @@
+---
+import { getMetadata } from '~/utils/config';
+import { getCanonical } from '~/utils/permalinks';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string | URL;
+  noindex?: boolean;
+  nofollow?: boolean;
+}
+
+const metadata = getMetadata();
+
+const {
+  title,
+  description = metadata.description,
+  image,
+  canonical = getCanonical(String(Astro.url.pathname)),
+  noindex = false,
+  nofollow = false,
+} = Astro.props;
+
+const formattedTitle = title
+  ? metadata.title.template.replace('%s', title)
+  : metadata.title.default;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>{formattedTitle}</title>
+
+{description && <meta name="description" content={description} />}
+
+{canonical && <link rel="canonical" href={canonical} />}
+
+<meta
+  name="robots"
+  content={`${noindex ? 'noindex' : 'index'}, ${nofollow ? 'nofollow' : 'follow'}`}
+/>
+
+<!-- Open Graph -->
+<meta property="og:title" content={formattedTitle} />
+<meta property="og:type" content="website" />
+{description && <meta property="og:description" content={description} />}
+{canonical && <meta property="og:url" content={canonical} />}
+{image && <meta property="og:image" content={image} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={formattedTitle} />
+{description && <meta name="twitter:description" content={description} />}
+{image && <meta name="twitter:image" content={image} />}
+
+

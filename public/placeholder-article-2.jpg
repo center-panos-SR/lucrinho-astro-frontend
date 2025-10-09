@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <rect width="480" height="320" fill="#2d3748"/>
+  <g opacity="0.5">
+    <path d="M50,160 L120,140 L190,170 L260,130 L330,155 L400,120" fill="none" stroke="#4299e1" stroke-width="3"/>
+    <circle cx="120" cy="140" r="6" fill="#4299e1"/>
+    <circle cx="260" cy="130" r="6" fill="#4299e1"/>
+    <circle cx="400" cy="120" r="6" fill="#4299e1"/>
+  </g>
+  <text x="240" y="270" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle" opacity="0.8">Markets News</text>
+</svg>
+
+
