@@ -13,7 +13,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   site: 'https://lucrinho.com', // Atualize com seu domínio
   integrations: [
-    tailwind(),
+    tailwind({
+      config: {
+        applyBaseStyles: false,
+      },
+    }),
     mdx(),
     sitemap(),
     {
@@ -22,9 +26,54 @@ export default defineConfig({
         'astro:build:done': async ({ dir }) => {
           // Copiar config.yaml para dist
           const source = path.resolve(__dirname, './src/config.yaml');
-          const dest = path.resolve(dir.pathname, './config.yaml');
-          fs.copyFileSync(source, dest);
-          console.log('✓ config.yaml copiado para dist');
+          const destDir = fileURLToPath(dir);
+          const dest = path.join(destDir, 'config.yaml');
+          if (fs.existsSync(source)) {
+            fs.copyFileSync(source, dest);
+            console.log('✓ config.yaml copiado para dist');
+          }
+        },
+      },
+    },
+    {
+      name: 'cache-headers',
+      hooks: {
+        'astro:build:done': async ({ dir }) => {
+          // Criar arquivo _headers para Netlify ou similar
+          const headersContent = `
+# Cache de longo prazo para recursos estáticos
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon-lucrinho.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.otf
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache para HTML
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+`;
+          const destDir = fileURLToPath(dir);
+          const headersPath = path.join(destDir, '_headers');
+          fs.writeFileSync(headersPath, headersContent.trim());
+          console.log('✓ Arquivo _headers criado com configurações de cache');
         },
       },
     },
@@ -35,5 +84,18 @@ export default defineConfig({
         '~': path.resolve(__dirname, './src'),
       },
     },
+    build: {
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['astro']
+          }
+        }
+      }
+    }
+  },
+  build: {
+    inlineStylesheets: 'auto',
   }
 });

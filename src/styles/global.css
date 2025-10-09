@@ -10,6 +10,13 @@
   src: url('/src/assets/font/Trenda Semibold.otf') format('opentype');
 }
 
+/* Fallback para fonte antes de carregar */
+@font-face {
+  font-family: 'Trenda-fallback';
+  size-adjust: 100%;
+  src: local('Arial');
+}
+
 @layer base {
   :root {
     --color-primary: 59 130 246;

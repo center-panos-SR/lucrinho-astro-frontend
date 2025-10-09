@@ -40,6 +40,15 @@ const {
     />
     <link rel="icon" type="image/webp" href="/favicon-lucrinho.webp" />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- Preload recursos críticos -->
+    <link rel="preload" href="/src/assets/font/Trenda Semibold.otf" as="font" type="font/otf" crossorigin="anonymous" />
+    <link rel="preload" href="/LogoLucrinho.png" as="image" />
+    
+    <!-- DNS Prefetch para recursos externos -->
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+    <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
   </head>
   <body class="antialiased text-default bg-page tracking-tight">
     <Header />

@@ -7,6 +7,7 @@ export interface Props {
   imageUrl: string;
   href: string;
   size?: 'large' | 'medium';
+  isPrimary?: boolean;
 }
 
 const {
@@ -16,7 +17,8 @@ const {
   timeAgo,
   imageUrl,
   href,
-  size = 'large'
+  size = 'large',
+  isPrimary = false
 } = Astro.props;
 ---
 
@@ -26,7 +28,11 @@ const {
       src={imageUrl}
       alt={title}
       class="article-image"
-      loading="lazy"
+      loading={isPrimary ? "eager" : "lazy"}
+      fetchpriority={isPrimary ? "high" : "auto"}
+      decoding="async"
+      width="800"
+      height="450"
     />
   </div>
   <div class="article-content">

@@ -17,6 +17,9 @@ const { title, category, date, imageUrl, href } = Astro.props;
       alt={title}
       class="article-card-img"
       loading="lazy"
+      decoding="async"
+      width="320"
+      height="213"
     />
   </div>
   <div class="article-card-content">

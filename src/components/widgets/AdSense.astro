@@ -38,12 +38,42 @@ const {
   </div>
 </section>
 
-<!-- Script do AdSense (carregado uma única vez) -->
-<script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
+<!-- Script do AdSense (carregado de forma otimizada) -->
 <script is:inline>
-  // Inicializar AdSense quando o script carregar
-  (window.adsbygoogle = window.adsbygoogle || []).push({});
+  // Carregar AdSense de forma assíncrona e otimizada
+  if (typeof window !== 'undefined') {
+    // Adiar carregamento para não bloquear renderização
+    const loadAdSense = () => {
+      if (!document.querySelector('script[src*="adsbygoogle"]')) {
+        const script = document.createElement('script');
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        document.head.appendChild(script);
+        
+        script.onload = () => {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        };
+      } else {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    };
+
+    // Carregar após interação do usuário ou após delay
+    if (document.readyState === 'complete') {
+      setTimeout(loadAdSense, 1000);
+    } else {
+      window.addEventListener('load', () => setTimeout(loadAdSense, 1000));
+    }
+    
+    // Ou carregar na primeira interação
+    const events = ['mousedown', 'touchstart', 'scroll'];
+    const loadOnInteraction = () => {
+      loadAdSense();
+      events.forEach(event => window.removeEventListener(event, loadOnInteraction));
+    };
+    events.forEach(event => window.addEventListener(event, loadOnInteraction, { once: true, passive: true }));
+  }
 </script>
 
 <style>
@@ -71,7 +101,7 @@ const {
 
   .adsense-label span {
     font-size: 11px;
-    color: #767676;
+    color: #4a4a4a;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-family: Arial, sans-serif;
