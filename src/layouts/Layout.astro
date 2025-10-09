@@ -41,14 +41,30 @@ const {
     <link rel="icon" type="image/webp" href="/favicon-lucrinho.webp" />
     <meta name="generator" content={Astro.generator} />
     
+    <!-- Critical CSS Inline para mobile -->
+    <style>
+      /* Critical CSS - Above the fold */
+      body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+      .header-ed6d361ee809{position:sticky;top:0;z-index:50;width:100%;background:#fff;display:flex;align-items:end;justify-content:center;padding:13px 24px;border-bottom:1px solid rgba(226,232,240,.5);box-shadow:0 1px 3px 0 rgba(0,0,0,.1)}
+      .logo-lucrin-ed781b57548d{width:110px;height:24px;background:url(/LogoLucrinho.png) no-repeat center/contain;flex-shrink:0}
+      .hero-section{min-height:calc(100vh - 200px)}
+      .article-image-wrapper{position:relative;aspect-ratio:16/9;overflow:hidden}
+      .article-image{width:100%;height:100%;object-fit:cover}
+      @media(min-width:768px){.logo-lucrin-ed781b57548d{width:133px}}
+    </style>
+    
     <!-- Preload recursos críticos -->
     <link rel="preload" href="/src/assets/font/Trenda Semibold.otf" as="font" type="font/otf" crossorigin="anonymous" />
-    <link rel="preload" href="/LogoLucrinho.png" as="image" />
+    <link rel="preload" href="/LogoLucrinho.png" as="image" fetchpriority="high" />
+    <link rel="preload" href="/placeholder-stock-market.jpg" as="image" fetchpriority="high" />
     
     <!-- DNS Prefetch para recursos externos -->
     <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
     <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
     <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+    
+    <!-- Resource hints para melhorar TTFB -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body class="antialiased text-default bg-page tracking-tight">
     <Header />

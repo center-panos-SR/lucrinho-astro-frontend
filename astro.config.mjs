@@ -86,16 +86,35 @@ export default defineConfig({
     },
     build: {
       cssCodeSplit: true,
+      minify: 'esbuild',
+      target: 'esnext',
       rollupOptions: {
         output: {
           manualChunks: {
             vendor: ['astro']
-          }
+          },
+          assetFileNames: (assetInfo) => {
+            let extType = assetInfo.name.split('.').at(1);
+            if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp/i.test(extType)) {
+              extType = 'img';
+            }
+            return `_astro/${extType}/[name]-[hash][extname]`;
+          },
+          chunkFileNames: '_astro/js/[name]-[hash].js',
+          entryFileNames: '_astro/js/[name]-[hash].js',
         }
+      }
+    },
+    server: {
+      headers: {
+        'Cache-Control': 'public, max-age=31536000, immutable'
       }
     }
   },
   build: {
-    inlineStylesheets: 'auto',
-  }
+    inlineStylesheets: 'always',
+    assets: '_astro'
+  },
+  compressHTML: true,
+  output: 'static'
 });

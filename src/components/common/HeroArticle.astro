@@ -24,16 +24,29 @@ const {
 
 <a href={href} class="hero-article">
   <div class="article-image-wrapper">
-    <img
-      src={imageUrl}
-      alt={title}
-      class="article-image"
-      loading={isPrimary ? "eager" : "lazy"}
-      fetchpriority={isPrimary ? "high" : "auto"}
-      decoding="async"
-      width="800"
-      height="450"
-    />
+    {isPrimary ? (
+      <img
+        src={imageUrl}
+        alt={title}
+        class="article-image"
+        loading="eager"
+        fetchpriority="high"
+        decoding="sync"
+        width="800"
+        height="450"
+      />
+    ) : (
+      <img
+        src={imageUrl}
+        alt={title}
+        class="article-image"
+        loading="lazy"
+        fetchpriority="low"
+        decoding="async"
+        width="800"
+        height="450"
+      />
+    )}
   </div>
   <div class="article-content">
     <h2 class={`article-title ${size === 'large' ? 'article-title-large' : 'article-title-medium'}`}>
