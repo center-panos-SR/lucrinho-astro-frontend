@@ -19,7 +19,20 @@ export default defineConfig({
       },
     }),
     mdx(),
-    sitemap(),
+    sitemap({
+      filter: (page) => !page.includes('/_astro/'),
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date(),
+      customPages: [
+        'https://lucrinho.com/',
+        'https://lucrinho.com/blog',
+        'https://lucrinho.com/sobre',
+        'https://lucrinho.com/servicos',
+        'https://lucrinho.com/contato',
+        'https://lucrinho.com/books',
+      ],
+    }),
     {
       name: 'copy-config',
       hooks: {
@@ -68,7 +81,7 @@ export default defineConfig({
 
 # Cache para HTML
 /*.html
-  Cache-Control: public, max-age=3600, must-revalidate
+  Cache-Control: no-cache, no-store, must-revalidate
 `;
           const destDir = fileURLToPath(dir);
           const headersPath = path.join(destDir, '_headers');
@@ -88,6 +101,21 @@ export default defineConfig({
           if (fs.existsSync(source)) {
             fs.copyFileSync(source, dest);
             console.log('✓ serve.json copiado para dist');
+          }
+        },
+      },
+    },
+    {
+      name: 'copy-robots-txt',
+      hooks: {
+        'astro:build:done': async ({ dir }) => {
+          // Copiar robots.txt para dist
+          const source = path.resolve(__dirname, './public/robots.txt');
+          const destDir = fileURLToPath(dir);
+          const dest = path.join(destDir, 'robots.txt');
+          if (fs.existsSync(source)) {
+            fs.copyFileSync(source, dest);
+            console.log('✓ robots.txt copiado para dist');
           }
         },
       },
@@ -122,7 +150,7 @@ export default defineConfig({
     },
     server: {
       headers: {
-        'Cache-Control': 'public, max-age=31536000, immutable'
+        'Cache-Control': 'no-store'
       }
     }
   },
