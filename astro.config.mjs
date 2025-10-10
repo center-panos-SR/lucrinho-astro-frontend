@@ -125,6 +125,21 @@ export default defineConfig({
         },
       },
     },
+    {
+      name: 'copy-redirects',
+      hooks: {
+        'astro:build:done': async ({ dir }) => {
+          // Copiar _redirects para dist (Railway)
+          const source = path.resolve(__dirname, './public/_redirects');
+          const destDir = fileURLToPath(dir);
+          const dest = path.join(destDir, '_redirects');
+          if (fs.existsSync(source)) {
+            fs.copyFileSync(source, dest);
+            console.log('✓ _redirects copiado para dist (Railway)');
+          }
+        },
+      },
+    },
   ],
   vite: {
     resolve: {

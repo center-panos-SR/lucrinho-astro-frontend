@@ -1,0 +1,26 @@
+# Railway redirects and headers
+# XML files
+/*.xml
+  Content-Type: application/xml
+  Cache-Control: public, max-age=3600
+
+# Robots.txt
+/robots.txt
+  Content-Type: text/plain
+  Cache-Control: public, max-age=86400
+
+# Static assets
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images
+/*.{png,jpg,jpeg,gif,webp,svg,ico}
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts
+/*.{woff,woff2,ttf,otf,eot}
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML files
+/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
