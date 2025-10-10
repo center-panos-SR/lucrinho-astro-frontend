@@ -13,6 +13,7 @@ export interface Props {
   canonical?: string | URL;
   noindex?: boolean;
   nofollow?: boolean;
+  structuredData?: any[];
 }
 
 const { language, textDirection } = getI18N();
@@ -24,6 +25,7 @@ const {
   canonical,
   noindex = false,
   nofollow = false,
+  structuredData = [],
 } = Astro.props;
 ---
 
@@ -55,6 +57,11 @@ const {
     
     <!-- Resource hints para melhorar TTFB -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Structured Data -->
+    {structuredData.map((data) => (
+      <script type="application/ld+json" set:html={JSON.stringify(data)} />
+    ))}
   </head>
   <body class="antialiased text-default bg-page tracking-tight">
     <Header />

@@ -8,6 +8,63 @@ import MissionTrust from '~/components/widgets/MissionTrust.astro';
 const metadata = {
   title: 'Lucrinho — Notícias sobre Finanças e Investimentos',
   description: 'Fique por dentro das últimas notícias do mercado financeiro, investimentos e economia',
+  structuredData: [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Lucrinho",
+      "url": "https://www.lucrinho.com.br",
+      "description": "Lucrinho é uma plataforma especializada em finanças pessoais, investimentos e renda extra. Dicas práticas e ferramentas para lucrar online com segurança e estratégia.",
+      "inLanguage": "pt-BR",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Lucrinho",
+        "url": "https://www.lucrinho.com.br",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://cdn.lucrinho.com.br/LogoLucrinho%20banner.png"
+        },
+        "sameAs": [
+          "https://www.facebook.com/profile.php?id=61566946990104"
+        ]
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.lucrinho.com.br/busca?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Lucrinho",
+      "url": "https://www.lucrinho.com.br",
+      "logo": "https://www.lucrinho.com.br/logo.png",
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61566946990104"
+      ],
+      "founder": {
+        "@type": "Person",
+        "name": "Rodrigo Jácomo",
+        "url": "https://br.linkedin.com/in/rodrigo-j%C3%A1como-8a7509147",
+        "sameAs": [
+          "https://br.linkedin.com/in/rodrigo-j%C3%A1como-8a7509147"
+        ],
+        "jobTitle": "Fundador e Estrategista de Negócios",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Lucrinho"
+        }
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Suporte ao Usuário",
+        "email": "contato@lucrinho.com.br",
+        "areaServed": "BR",
+        "availableLanguage": "Portuguese"
+      }
+    }
+  ]
 };
 ---
 
