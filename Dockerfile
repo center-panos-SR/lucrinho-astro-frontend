@@ -25,7 +25,6 @@ WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
-COPY serve.json ./
 
 # Install serve globally
 RUN npm install -g serve@14.2.5
@@ -34,5 +33,5 @@ RUN npm install -g serve@14.2.5
 EXPOSE 3000
 
 # Start the application
-CMD ["serve", "dist", "-l", "3000", "-c", "serve.json"]
+CMD ["serve", "dist", "-l", "3000"]
 

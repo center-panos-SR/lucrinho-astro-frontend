@@ -77,6 +77,21 @@ export default defineConfig({
         },
       },
     },
+    {
+      name: 'copy-serve-config',
+      hooks: {
+        'astro:build:done': async ({ dir }) => {
+          // Copiar serve.json para dist
+          const source = path.resolve(__dirname, './serve.json');
+          const destDir = fileURLToPath(dir);
+          const dest = path.join(destDir, 'serve.json');
+          if (fs.existsSync(source)) {
+            fs.copyFileSync(source, dest);
+            console.log('✓ serve.json copiado para dist');
+          }
+        },
+      },
+    },
   ],
   vite: {
     resolve: {
