@@ -82,6 +82,11 @@ export default defineConfig({
 # Cache para HTML
 /*.html
   Cache-Control: no-cache, no-store, must-revalidate
+
+# XML files (sitemap)
+/*.xml
+  Content-Type: application/xml
+  Cache-Control: public, max-age=3600
 `;
           const destDir = fileURLToPath(dir);
           const headersPath = path.join(destDir, '_headers');
