@@ -9,7 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "start": "serve dist -l 3000 -c serve.json",
+    "start": "serve dist -l $PORT -c serve.json",
     "astro": "astro"
   },
   "optionalDependencies": {
