@@ -26,6 +26,9 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
 
+# Copy serve configuration (already copied to dist by build hook)
+COPY --from=builder /app/dist/serve.json ./serve.json
+
 # Install serve globally
 RUN npm install -g serve@14.2.5
 
@@ -35,6 +38,6 @@ EXPOSE 3000
 # Set default PORT if not provided
 ENV PORT=3000
 
-# Start the application
-CMD sh -c "serve dist -l $PORT"
+# Start the application using serve.json config
+CMD sh -c "serve -l $PORT -c serve.json"
 
