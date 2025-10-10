@@ -1,26 +1,23 @@
-# robots.txt para lucrinho.com.br
-# Última atualização: 2025-10-10
-# Otimizado para Astro Static Site
+# robots.txt - lucrinho.com
+# Updated: 2025-10-10
 
+# Default rules for all bots
 User-agent: *
-# Permitir rastreamento de todo o conteúdo
 Allow: /
-
-# Bloquear apenas recursos não essenciais
 Disallow: /_astro/
 
-# Sitemap principal
+# Sitemap location
 Sitemap: https://lucrinho.com/sitemap-index.xml
 
-# Configurações específicas para Google
+# Google bot
 User-agent: Googlebot
 Allow: /
 
-# Configurações específicas para Bing
+# Bing bot
 User-agent: Bingbot
 Allow: /
 
-# Bloquear bots maliciosos conhecidos
+# Block aggressive crawlers
 User-agent: AhrefsBot
 Disallow: /
 
