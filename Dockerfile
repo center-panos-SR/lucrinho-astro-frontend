@@ -32,6 +32,9 @@ RUN npm install -g serve@14.2.5
 # Expose port
 EXPOSE 3000
 
+# Set default PORT if not provided
+ENV PORT=3000
+
 # Start the application
-CMD ["serve", "dist", "-l", "3000"]
+CMD sh -c "serve dist -l $PORT"
 
