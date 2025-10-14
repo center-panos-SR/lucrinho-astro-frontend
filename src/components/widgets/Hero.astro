@@ -1,7 +1,44 @@
 ---
+import { fetchAPI } from '~/lib/api.js';
 import HeroArticle from '../common/HeroArticle.astro';
 import RelatedLinks from '../common/RelatedLinks.astro';
 import RateCard from '../common/RateCard.astro';
+
+// Buscar artigos do Strapi (primeiros 2 para o Hero)
+const artigos = await fetchAPI('artigos?populate=*&pagination[limit]=2&sort=createdAt:desc');
+
+// Dados fallback caso API não retorne dados
+const mockPrimary = {
+  titulo: "Por que analistas de Wall Street dizem que não estamos em uma bolha de IA... ainda",
+  expert: "Análise do mercado de IA e as perspectivas para investimentos em tecnologia",
+  slug: "bolha-ia",
+  cover: { url: "/placeholder-stock-market.jpg" },
+  admin_user: { firstname: "Colin", lastname: "Laidley" }
+};
+
+const mockSecondary = {
+  titulo: "Fed disposto a cortar taxas, mas a inflação pode atrapalhar os planos",
+  expert: "Se você está esperando as taxas de juros caírem, provavelmente não ficará decepcionado, mas a inflação pode facilmente estragar a festa.",
+  slug: "fed-taxas",
+  cover: { url: "/placeholder-federal-reserve.jpg" },
+  admin_user: { firstname: "Diccon", lastname: "Hyatt" }
+};
+
+// Usar dados do Strapi se disponíveis, senão usar mock
+const primary = artigos[0] || mockPrimary;
+const secondary = artigos[1] || mockSecondary;
+
+// Helper para formatar nome do autor
+const getAuthorName = (admin_user: any) => {
+  if (!admin_user) return "Redação Lucrinho";
+  return `${admin_user.firstname || ''} ${admin_user.lastname || ''}`.trim() || "Redação Lucrinho";
+};
+
+// Helper para URL da imagem
+const getImageUrl = (cover: any) => {
+  if (!cover) return "/placeholder-stock-market.jpg";
+  return cover.url || "/placeholder-stock-market.jpg";
+};
 ---
 
 <section class="hero-section">
@@ -13,11 +50,12 @@ import RateCard from '../common/RateCard.astro';
         {/* Primary Article */}
         <div class="md:col-span-2 lg:col-span-1">
           <HeroArticle
-            title="Por que analistas de Wall Street dizem que não estamos em uma bolha de IA... ainda"
-            author="Colin Laidley"
-            timeAgo="1 hora atrás"
-            imageUrl="/placeholder-stock-market.jpg"
-            href="/artigo/bolha-ia"
+            title={primary.titulo}
+            excerpt={primary.expert}
+            author={getAuthorName(primary.admin_user)}
+            timeAgo="Recente"
+            imageUrl={getImageUrl(primary.cover)}
+            href={`/artigo/${primary.slug}`}
             size="large"
             isPrimary={true}
           />
@@ -42,12 +80,12 @@ import RateCard from '../common/RateCard.astro';
         {/* Secondary Article */}
         <div class="md:col-span-2 lg:col-span-1">
           <HeroArticle
-            title="Fed disposto a cortar taxas, mas a inflação pode atrapalhar os planos"
-            excerpt="Se você está esperando as taxas de juros caírem, provavelmente não ficará decepcionado, mas a inflação pode facilmente estragar a festa."
-            author="Diccon Hyatt"
-            timeAgo="14 horas atrás"
-            imageUrl="/placeholder-federal-reserve.jpg"
-            href="/artigo/fed-taxas"
+            title={secondary.titulo}
+            excerpt={secondary.expert}
+            author={getAuthorName(secondary.admin_user)}
+            timeAgo="Recente"
+            imageUrl={getImageUrl(secondary.cover)}
+            href={`/artigo/${secondary.slug}`}
             size="medium"
           />
           <RelatedLinks

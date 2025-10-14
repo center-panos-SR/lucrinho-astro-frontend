@@ -22,72 +22,325 @@ const metadata = {
   description: post.data.description,
   image: post.data.image,
 };
+
+// Formatar data
+const publishDate = post.data.publishDate.toLocaleDateString('pt-BR', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+});
+
+const publishTime = post.data.publishDate.toLocaleTimeString('pt-BR', {
+  hour: '2-digit',
+  minute: '2-digit',
+});
+
+// Calcular tempo desde publicação (simplificado)
+const now = new Date();
+const diffMs = now.getTime() - post.data.publishDate.getTime();
+const diffMins = Math.floor(diffMs / 60000);
+const diffHours = Math.floor(diffMins / 60);
+const timeAgo = diffHours < 24 ? `há ${diffMins} minutos` : `há ${diffHours} horas`;
 ---
 
 <Layout {...metadata}>
-  <article class="px-4 py-16 mx-auto max-w-4xl lg:px-8 lg:py-20">
-    <header class="mb-8">
-      {
-        post.data.image && (
-          <img
-            src={post.data.image}
-            alt={post.data.title}
-            class="w-full h-64 md:h-96 object-cover rounded-lg mb-8"
-          />
-        )
+  <style>
+    @font-face {
+      font-family: 'sourcesanspro';
+      font-style: normal;
+      font-weight: 700;
+      font-display: block;
+      src: url(https://design.penpot.app/fonts/sourcesanspro-bold.woff) format('woff');
+    }
+
+    @font-face {
+      font-family: 'sourcesanspro';
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url(https://design.penpot.app/fonts/sourcesanspro-regular.woff) format('woff');
+    }
+
+    .article-hero {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 42px 206px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      font-family: "sourcesanspro", sans-serif;
+    }
+
+    .breadcrumb a,
+    .breadcrumb span {
+      color: #c41c1c;
+      font-size: 14px;
+      font-weight: 400;
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumb-arrow {
+      width: 8px;
+      height: 12px;
+    }
+
+    .article-title {
+      margin-bottom: 20px;
+      font-family: "sourcesanspro", sans-serif;
+    }
+
+    .article-title h1 {
+      color: #000000;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .article-description {
+      margin-bottom: 20px;
+      font-family: "sourcesanspro", sans-serif;
+    }
+
+    .article-description p {
+      color: #383838;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .article-author {
+      margin-bottom: 8px;
+      font-family: "sourcesanspro", sans-serif;
+    }
+
+    .article-author p {
+      color: #383838;
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .article-author .author-name {
+      color: #c41c1c;
+    }
+
+    .article-date {
+      margin-bottom: 20px;
+      font-family: "sourcesanspro", sans-serif;
+    }
+
+    .article-date p {
+      color: #383838;
+      font-size: 14px;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .social-buttons {
+      display: flex;
+      gap: 4px;
+      margin: 20px 0;
+    }
+
+    .social-btn {
+      width: 33px;
+      height: 31px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .social-btn:hover {
+      opacity: 0.8;
+    }
+
+    .facebook-btn {
+      background: #007fff;
+    }
+
+    .instagram-btn {
+      background: linear-gradient(135deg, #8134af 0%, #dd2a7b 100%);
+    }
+
+    .summary-box {
+      width: 100%;
+      max-width: 765px;
+      height: 67px;
+      border: 1px solid #848484;
+      border-radius: 10px;
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-family: "sourcesanspro", sans-serif;
+    }
+
+    .summary-box:hover {
+      background-color: #f5f5f5;
+    }
+
+    .summary-text {
+      flex: 1;
+      color: #000000;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .chevron-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .content-box {
+      width: 100%;
+      max-width: 765px;
+      min-height: 258px;
+      background: #ffffff;
+      border-radius: 10px;
+      margin-top: 20px;
+      font-family: "sourcesanspro", sans-serif;
+    }
+
+    .content-box :global(.prose) {
+      color: #383838;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .article-hero {
+        padding: 20px;
       }
+
+      .article-title h1 {
+        font-size: 32px;
+      }
+
+      .article-description p {
+        font-size: 16px;
+      }
+
+      .summary-text {
+        font-size: 18px;
+      }
+    }
+  </style>
+
+  <div class="article-hero">
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+      <a href="/">Home</a>
       
-      <div class="flex items-center gap-2 text-sm text-muted mb-4">
-        <time datetime={post.data.publishDate.toISOString()}>
-          {
-            post.data.publishDate.toLocaleDateString('pt-BR', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })
-          }
-        </time>
-        {
-          post.data.category && (
-            <>
-              <span>·</span>
-              <span class="text-blue-600 dark:text-blue-400">{post.data.category}</span>
-            </>
-          )
-        }
-        <span>·</span>
-        <span>{post.data.author}</span>
+      <div class="breadcrumb-arrow">
+        <svg width="8" height="12" viewBox="0 0 8 12" fill="none">
+          <path d="M2.74 2.82L5.33 6L2.74 9.18" stroke="#9e0000" stroke-width="1"/>
+        </svg>
       </div>
-
-      <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4 dark:text-white">
-        {post.data.title}
-      </h1>
-
-      {
-        post.data.tags && post.data.tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 mt-4">
-            {post.data.tags.map((tag) => (
-              <span class="px-3 py-1 text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full">
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )
-      }
-    </header>
-
-    <div class="prose prose-lg dark:prose-invert max-w-none">
-      <Content />
+      
+      <span>{post.data.category || 'Blog'}</span>
     </div>
 
-    <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+    <!-- Article Title -->
+    <div class="article-title">
+      <h1>{post.data.title}</h1>
+    </div>
+
+    <!-- Article Description -->
+    {post.data.description && (
+      <div class="article-description">
+        <p>{post.data.description}</p>
+      </div>
+    )}
+
+    <!-- Author Info -->
+    <div class="article-author">
+      <p>Por <span class="author-name">{post.data.author || 'Lucrinho'}</span></p>
+    </div>
+
+    <!-- Date Info -->
+    <div class="article-date">
+      <p>{publishDate} {publishTime} Atualizado {timeAgo}</p>
+    </div>
+
+    <!-- Social Share Buttons -->
+    <div class="social-buttons">
+      <!-- Facebook Button -->
+      <a 
+        href={`https://www.facebook.com/sharer/sharer.php?u=${Astro.url.href}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-btn facebook-btn"
+        aria-label="Compartilhar no Facebook"
+      >
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <path d="M22.5 2.5H18.75C15.2982 2.5 12.5 5.29822 12.5 8.75V12.5H8.75V17.5H12.5V27.5H17.5V17.5H21.25L22.5 12.5H17.5V8.75C17.5 8.05969 18.0597 7.5 18.75 7.5H22.5V2.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <!-- Instagram Button -->
+      <a 
+        href="https://www.instagram.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-btn instagram-btn"
+        aria-label="Compartilhar no Instagram"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="3" width="18" height="18" rx="3" stroke="white" stroke-width="2" fill="none"/>
+          <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2" fill="none"/>
+          <circle cx="18" cy="6" r="1" fill="white"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Summary Box -->
+    <div class="summary-box" onclick="this.querySelector('.chevron-icon').style.transform = this.querySelector('.chevron-icon').style.transform === 'rotate(180deg)' ? 'rotate(0deg)' : 'rotate(180deg)'">
+      <div class="summary-text">Ver resumo</div>
+      
+      <div class="chevron-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M8 10L12 14L16 10" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Content Box -->
+    <div class="content-box">
+      <div class="prose prose-lg max-w-none">
+        <Content />
+      </div>
+    </div>
+
+    <!-- Back to Blog Link -->
+    <footer style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; width: 100%; max-width: 765px;">
       <a
         href="/blog"
-        class="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+        style="color: #c41c1c; font-family: 'sourcesanspro', sans-serif; font-weight: 700; text-decoration: none;"
       >
         ← Voltar para o blog
       </a>
     </footer>
-  </article>
+  </div>
 </Layout>
 

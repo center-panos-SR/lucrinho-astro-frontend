@@ -1,78 +1,100 @@
 ---
+import { fetchAPI } from '~/lib/api.js';
 import ArticleCard from '../common/ArticleCard.astro';
 
-const articles = [
+// Buscar artigos do Strapi
+const artigosStrapi = await fetchAPI('artigos?populate=*&pagination[limit]=10&sort=createdAt:desc');
+
+// Dados mock fallback
+const mockArticles = [
   {
-    title: "Aposentadoria neste outono? Agora é a hora de abrir um CD",
-    category: "CD News",
-    date: "09 de outubro de 2025",
-    imageUrl: "/placeholder-article-1.jpg",
-    href: "/artigo/aposentadoria-cd",
+    titulo: "Aposentadoria neste outono? Agora é a hora de abrir um CD",
+    category: { name: "CD News" },
+    createdAt: "2025-10-09",
+    cover: { url: "/placeholder-article-1.jpg" },
+    slug: "aposentadoria-cd",
   },
   {
-    title: "O mercado de ações estará aberto no Dia de Colombo? Confira a programação dos feriados de outono e inverno",
-    category: "Markets News",
-    date: "09 de outubro de 2025",
-    imageUrl: "/placeholder-article-2.jpg",
-    href: "/artigo/mercado-colombo",
+    titulo: "O mercado de ações estará aberto no Dia de Colombo? Confira a programação dos feriados de outono e inverno",
+    category: { name: "Markets News" },
+    createdAt: "2025-10-09",
+    cover: { url: "/placeholder-article-2.jpg" },
+    slug: "mercado-colombo",
   },
   {
-    title: "Mais cortes do Fed estão se aproximando — por que pode valer a pena pegar seu RMD de 2025 antes que eles aconteçam",
-    category: "Personal Finance News",
-    date: "08 de outubro de 2025",
-    imageUrl: "/placeholder-article-3.jpg",
-    href: "/artigo/fed-rmd",
+    titulo: "Mais cortes do Fed estão se aproximando — por que pode valer a pena pegar seu RMD de 2025 antes que eles aconteçam",
+    category: { name: "Personal Finance News" },
+    createdAt: "2025-10-08",
+    cover: { url: "/placeholder-article-3.jpg" },
+    slug: "fed-rmd",
   },
   {
-    title: "Ganhos e perdas do S&P 500 hoje: alta impulsionada pela IA impulsiona índice para nova máxima",
-    category: "Markets News",
-    date: "08 de outubro de 2025",
-    imageUrl: "/placeholder-article-4.jpg",
-    href: "/artigo/sp500-ia",
+    titulo: "Ganhos e perdas do S&P 500 hoje: alta impulsionada pela IA impulsiona índice para nova máxima",
+    category: { name: "Markets News" },
+    createdAt: "2025-10-08",
+    cover: { url: "/placeholder-article-4.jpg" },
+    slug: "sp500-ia",
   },
   {
-    title: "As regras do Pell Grant mudaram. Um especialista explica como as famílias podem se preparar",
-    category: "Personal Finance News",
-    date: "08 de outubro de 2025",
-    imageUrl: "/placeholder-article-5.jpg",
-    href: "/artigo/pell-grant",
+    titulo: "As regras do Pell Grant mudaram. Um especialista explica como as famílias podem se preparar",
+    category: { name: "Personal Finance News" },
+    createdAt: "2025-10-08",
+    cover: { url: "/placeholder-article-5.jpg" },
+    slug: "pell-grant",
   },
   {
-    title: "Perdas de empregos atingem duramente trabalhadores negros, asiáticos e hispânicos, gerando preocupações para todos os americanos",
-    category: "Economic News",
-    date: "08 de outubro de 2025",
-    imageUrl: "/placeholder-article-6.jpg",
-    href: "/artigo/perdas-empregos",
+    titulo: "Perdas de empregos atingem duramente trabalhadores negros, asiáticos e hispânicos, gerando preocupações para todos os americanos",
+    category: { name: "Economic News" },
+    createdAt: "2025-10-08",
+    cover: { url: "/placeholder-article-6.jpg" },
+    slug: "perdas-empregos",
   },
   {
-    title: "Principais ações em alta no momento: Nvidia, AMD, Dell, Fair Isaac e mais",
-    category: "Markets News",
-    date: "08 de outubro de 2025",
-    imageUrl: "/placeholder-article-7.jpg",
-    href: "/artigo/acoes-nvidia",
+    titulo: "Principais ações em alta no momento: Nvidia, AMD, Dell, Fair Isaac e mais",
+    category: { name: "Markets News" },
+    createdAt: "2025-10-08",
+    cover: { url: "/placeholder-article-7.jpg" },
+    slug: "acoes-nvidia",
   },
   {
-    title: "Ações da Rocket Lab sobem com novos acordos de lançamento de satélites multimissão",
-    category: "Tech Sector News",
-    date: "08 de outubro de 2025",
-    imageUrl: "/placeholder-article-8.jpg",
-    href: "/artigo/rocket-lab",
+    titulo: "Ações da Rocket Lab sobem com novos acordos de lançamento de satélites multimissão",
+    category: { name: "Tech Sector News" },
+    createdAt: "2025-10-08",
+    cover: { url: "/placeholder-article-8.jpg" },
+    slug: "rocket-lab",
   },
   {
-    title: "Este banco paga até 5,25% se você caminhar 10.000 passos por dia",
-    category: "Personal Finance News",
-    date: "08 de outubro de 2025",
-    imageUrl: "/placeholder-article-9.jpg",
-    href: "/artigo/banco-passos",
+    titulo: "Este banco paga até 5,25% se você caminhar 10.000 passos por dia",
+    category: { name: "Personal Finance News" },
+    createdAt: "2025-10-08",
+    cover: { url: "/placeholder-article-9.jpg" },
+    slug: "banco-passos",
   },
   {
-    title: "As inscrições abertas para o Medicare começam em 7 dias: informações essenciais e como se preparar",
-    category: "Insurance News",
-    date: "08 de outubro de 2025",
-    imageUrl: "/placeholder-article-10.jpg",
-    href: "/artigo/medicare-inscricoes",
+    titulo: "As inscrições abertas para o Medicare começam em 7 dias: informações essenciais e como se preparar",
+    category: { name: "Insurance News" },
+    createdAt: "2025-10-08",
+    cover: { url: "/placeholder-article-10.jpg" },
+    slug: "medicare-inscricoes",
   },
 ];
+
+// Usar dados do Strapi se disponíveis, senão usar mock
+const artigos = artigosStrapi.length > 0 ? artigosStrapi : mockArticles;
+
+// Helpers
+const getCategoryName = (category: any) => {
+  return category?.name || "Notícias";
+};
+
+const getImageUrl = (cover: any) => {
+  return cover?.url || "/placeholder-article-1.jpg";
+};
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+};
 ---
 
 <section class="latest-articles-section">
@@ -93,8 +115,14 @@ const articles = [
 
       <!-- Scrollable Container -->
       <div class="carousel-container" id="articles-carousel">
-        {articles.map((article) => (
-          <ArticleCard {...article} />
+        {artigos.map((artigo) => (
+          <ArticleCard
+            title={artigo.titulo}
+            category={getCategoryName(artigo.category)}
+            date={formatDate(artigo.createdAt)}
+            imageUrl={getImageUrl(artigo.cover)}
+            href={`/artigo/${artigo.slug}`}
+          />
         ))}
       </div>
 
@@ -225,6 +253,7 @@ const articles = [
   // Reinicializar após navegação do Astro (se usar View Transitions)
   document.addEventListener('astro:page-load', initCarousel);
 </script>
+
 
 
 

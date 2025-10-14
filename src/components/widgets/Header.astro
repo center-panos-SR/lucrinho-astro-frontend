@@ -1,123 +1,225 @@
 ---
 // Header Lucrinho
+import { fetchCategories } from '../../lib/api.js';
+
+// Buscar categorias do Strapi
+let categories = [];
+try {
+  categories = await fetchCategories();
+} catch (error) {
+  console.error('Erro ao carregar categorias:', error);
+  // Fallback com categorias padrão
+  categories = [
+    { name: 'AVALIAÇÕES', slug: 'avaliacoes' },
+    { name: 'RENDA EXTRA', slug: 'renda-extra' },
+    { name: 'ECONÔMIA', slug: 'economia' },
+    { name: 'FERRAMENTAS', slug: 'ferramentas' },
+    { name: 'INVESTIMENTO', slug: 'investimento' }
+  ];
+}
 ---
 
 <!-- Header -->
 <div class="header-ed6d361ee809">
+  <!-- Search Bar Desktop (expandível) -->
+  <div class="desktop-search-bar" id="desktop-search-bar">
+    <div class="desktop-search-container">
+      <svg class="desktop-search-icon-inside" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14.645 13.482L17.411 16.248L16.498 17.161L13.732 14.395C12.737 15.191 11.476 15.667 10.104 15.667C6.896 15.667 4.292 13.063 4.292 9.854C4.292 6.646 6.896 4.042 10.104 4.042C13.313 4.042 15.917 6.646 15.917 9.854C15.917 11.226 15.441 12.487 14.645 13.482ZM13.349 13.002C14.139 12.189 14.625 11.078 14.625 9.854C14.625 7.356 12.602 5.333 10.104 5.333C7.606 5.333 5.583 7.356 5.583 9.854C5.583 12.352 7.606 14.375 10.104 14.375C11.328 14.375 12.439 13.889 13.253 13.099L13.349 13.002Z" fill="#292929"/>
+      </svg>
+      <input 
+        type="search" 
+        placeholder="Pesquisar no lucrinho.." 
+        class="desktop-search-input"
+        id="desktop-search-input"
+      />
+      <button class="desktop-search-close" id="desktop-search-close" aria-label="Fechar busca">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="#292929" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Elementos do header (logo e categorias) -->
+  <div class="header-elements" id="header-elements">
+    <!-- Logo -->
+    <a href="/" aria-label="Lucrinho Home" class="logo-link">
+      <div class="logo-lucrin-ed781b57548d"></div>
+    </a>
+
+    <!-- Categorias dinâmicas do Strapi -->
+    {categories.map((category) => (
+      <a href={`/blog?categoria=${category.slug}`} class="category-link">
+        <div class="category-item">
+          <div class="root-0">
+            <div class="root-0-paragraph-set-0">
+              <p class="root-0-paragraph-set-0-paragraph-0">
+                <span class="root-0-paragraph-set-0-paragraph-0-text-0">{category.name.toUpperCase()}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+
   <!-- Ícone de busca Desktop -->
-  <div class="risearch-ed7dc28cca0e">
+  <div class="risearch-ed7dc28cca0e" id="desktop-search-icon">
     <svg width="15.5" xmlns="http://www.w3.org/2000/svg" height="15.5" viewBox="0 0 15.5 15.5" fill="none">
       <path d="M11.645 10.482L14.411 13.248L13.498 14.161L10.732 11.395C9.737 12.191 8.476 12.667 7.104 12.667C3.896 12.667 1.292 10.063 1.292 6.854C1.292 3.646 3.896 1.042 7.104 1.042C10.313 1.042 12.917 3.646 12.917 6.854C12.917 8.226 12.441 9.487 11.645 10.482ZM10.349 10.002C11.139 9.189 11.625 8.078 11.625 6.854C11.625 4.356 9.602 2.333 7.104 2.333C4.606 2.333 2.583 4.356 2.583 6.854C2.583 9.352 4.606 11.375 7.104 11.375C8.328 11.375 9.439 10.889 10.253 10.099L10.349 10.002Z" fill="#292929"/>
     </svg>
   </div>
 
-  <!-- AVALIAÇÕES -->
-  <div class="a-v-a-l-i-a-e-s-ed7b861ae7ad">
-    <div class="root-0">
-      <div class="root-0-paragraph-set-0">
-        <p class="root-0-paragraph-set-0-paragraph-0">
-          <span class="root-0-paragraph-set-0-paragraph-0-text-0">AVALIAÇÕES</span>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- RENDA EXTRA -->
-  <div class="r-e-n-d-a-e-x-t-r-ed7b55ca443d">
-    <div class="root-0">
-      <div class="root-0-paragraph-set-0">
-        <p class="root-0-paragraph-set-0-paragraph-0">
-          <span class="root-0-paragraph-set-0-paragraph-0-text-0">RENDA EXTRA</span>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ECONÔMIA -->
-  <div class="e-c-o-n-m-i-a-ed7b03599607">
-    <div class="root-0">
-      <div class="root-0-paragraph-set-0">
-        <p class="root-0-paragraph-set-0-paragraph-0">
-          <span class="root-0-paragraph-set-0-paragraph-0-text-0">ECONÔMIA</span>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- FERRAMENTAS -->
-  <div class="f-e-r-r-a-m-e-n-t-a-ed7ae65393ab">
-    <div class="root-0">
-      <div class="root-0-paragraph-set-0">
-        <p class="root-0-paragraph-set-0-paragraph-0">
-          <span class="root-0-paragraph-set-0-paragraph-0-text-0">FERRAMENTAS</span>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- INVESTIMENTO -->
-  <div class="i-n-v-e-s-t-i-m-e-n-ed7ad00563e1">
-    <div class="root-0">
-      <div class="root-0-paragraph-set-0">
-        <p class="root-0-paragraph-set-0-paragraph-0">
-          <span class="root-0-paragraph-set-0-paragraph-0-text-0">INVESTIMENTO</span>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Logo -->
-  <a href="/" aria-label="Lucrinho Home">
-    <div class="logo-lucrin-ed781b57548d"></div>
-  </a>
-
-  <!-- Menu Hamburger (Mobile) -->
-  <button class="hamburger-menu" id="hamburger-btn" aria-label="Menu">
-    <svg width="33" height="33" viewBox="0 0 33 33" fill="none" aria-hidden="true">
-      <path d="M8.25 8.25H19.25M8.25 13.75H24.75M8.25 19.25H19.25M8.25 24.75H24.75" stroke="#3c3a3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Botão Menu Mobile -->
+  <button class="mobile-menu-btn flowbite-a-eed9965a0050" id="mobile-menu-toggle" aria-label="Menu">
+    <svg width="33" xmlns="http://www.w3.org/2000/svg" height="33" viewBox="0 0 33 33" fill="none">
+      <g class="basebackg-eed9965a0051">
+        <rect x="0" y="0" width="33" height="33" rx="0" ry="0" fill="none"/>
+      </g>
+      <g class="svgpath-eed9965a0052">
+        <path d="M8.25 8.25L19.25 8.25M8.25 13.75L24.75 13.75M8.25 19.25L19.25 19.25M8.25 24.75L24.75 24.75" stroke="#3c3a3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </g>
     </svg>
   </button>
 </div>
 
-<!-- Menu Mobile (Overlay) -->
-<div class="mobile-menu" id="mobile-menu">
-  
+<!-- Overlay da Sidebar -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- Sidebar Mobile -->
+<div class="mobile-sidebar" id="mobile-sidebar">
+  <!-- Cabeçalho da Sidebar -->
+  <div class="sidebar-header">
+    <button class="sidebar-close" id="sidebar-close" aria-label="Fechar menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6L18 18" stroke="#3c3a3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="sidebar-search">
+    <div class="search-container">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14.645 13.482L17.411 16.248L16.498 17.161L13.732 14.395C12.737 15.191 11.476 15.667 10.104 15.667C6.896 15.667 4.292 13.063 4.292 9.854C4.292 6.646 6.896 4.042 10.104 4.042C13.313 4.042 15.917 6.646 15.917 9.854C15.917 11.226 15.441 12.487 14.645 13.482ZM13.349 13.002C14.139 12.189 14.625 11.078 14.625 9.854C14.625 7.356 12.602 5.333 10.104 5.333C7.606 5.333 5.583 7.356 5.583 9.854C5.583 12.352 7.606 14.375 10.104 14.375C11.328 14.375 12.439 13.889 13.253 13.099L13.349 13.002Z" fill="#292929"/>
+      </svg>
+      <input 
+        type="search" 
+        placeholder="Buscar..." 
+        class="search-input"
+        id="sidebar-search-input"
+      />
+    </div>
+  </div>
+
+  <!-- Categorias -->
+  <nav class="sidebar-categories">
+    <h3 class="sidebar-categories-title">Categorias</h3>
+    <ul class="sidebar-categories-list">
+      {categories.map((category) => (
+        <li class="sidebar-category-item">
+          <a href={`/blog?categoria=${category.slug}`} class="sidebar-category-link">
+            {category.name.toUpperCase()}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
 </div>
 
 <script>
-  // Menu Hamburger
-  const hamburger = document.getElementById('hamburger-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const closeBtn = document.getElementById('close-btn');
+  // Controle da Sidebar Mobile
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileSidebar = document.getElementById('mobile-sidebar');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+  const sidebarClose = document.getElementById('sidebar-close');
+  const sidebarSearchInput = document.getElementById('sidebar-search-input');
 
-  hamburger?.addEventListener('click', () => {
-    mobileMenu?.classList.add('active');
+  function openSidebar() {
+    mobileSidebar?.classList.add('active');
+    sidebarOverlay?.classList.add('active');
     document.body.style.overflow = 'hidden';
-  });
+  }
 
-  closeBtn?.addEventListener('click', () => {
-    mobileMenu?.classList.remove('active');
+  function closeSidebar() {
+    mobileSidebar?.classList.remove('active');
+    sidebarOverlay?.classList.remove('active');
     document.body.style.overflow = '';
-  });
+  }
 
-  // Fechar ao clicar fora
-  mobileMenu?.addEventListener('click', (e) => {
-    if (e.target === mobileMenu) {
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
+  // Abrir sidebar ao clicar no menu
+  mobileMenuToggle?.addEventListener('click', openSidebar);
+
+  // Fechar sidebar ao clicar no botão fechar
+  sidebarClose?.addEventListener('click', closeSidebar);
+
+  // Fechar sidebar ao clicar no overlay
+  sidebarOverlay?.addEventListener('click', closeSidebar);
+
+  // Fechar sidebar ao pressionar ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeSidebar();
     }
   });
 
   // Funcionalidade de busca mobile
-  const searchInput = document.querySelector('.search-input-mobile');
-  searchInput?.addEventListener('keypress', (e) => {
-    const ev = e /** @type {KeyboardEvent} */ as KeyboardEvent;
-    if (ev.key === 'Enter') {
-      const inputEl = searchInput;
-      const searchTerm = inputEl && 'value' in inputEl ? String((inputEl as HTMLInputElement).value).trim() : '';
-      if (searchTerm) {
-        // Redirecionar para página de busca ou realizar busca
-        window.location.href = `/blog?search=${encodeURIComponent(searchTerm)}`;
+  sidebarSearchInput?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const searchQuery = (sidebarSearchInput as HTMLInputElement).value.trim();
+      if (searchQuery) {
+        window.location.href = `/pesquisa?q=${encodeURIComponent(searchQuery)}`;
+      }
+    }
+  });
+
+  // Funcionalidade de busca Desktop
+  const desktopSearchIcon = document.getElementById('desktop-search-icon');
+  const desktopSearchBar = document.getElementById('desktop-search-bar');
+  const desktopSearchClose = document.getElementById('desktop-search-close');
+  const desktopSearchInput = document.getElementById('desktop-search-input');
+  const headerElements = document.getElementById('header-elements');
+
+  function openDesktopSearch() {
+    desktopSearchBar?.classList.add('active');
+    desktopSearchIcon?.classList.add('hidden');
+    headerElements?.classList.add('hidden');
+    // Focar no input após a animação
+    setTimeout(() => {
+      (desktopSearchInput as HTMLInputElement)?.focus();
+    }, 300);
+  }
+
+  function closeDesktopSearch() {
+    desktopSearchBar?.classList.remove('active');
+    desktopSearchIcon?.classList.remove('hidden');
+    headerElements?.classList.remove('hidden');
+    // Limpar o input
+    if (desktopSearchInput) {
+      (desktopSearchInput as HTMLInputElement).value = '';
+    }
+  }
+
+  // Abrir search bar ao clicar na lupa
+  desktopSearchIcon?.addEventListener('click', openDesktopSearch);
+
+  // Fechar search bar ao clicar no X
+  desktopSearchClose?.addEventListener('click', closeDesktopSearch);
+
+  // Fechar ao pressionar ESC (apenas se a search bar estiver aberta)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && desktopSearchBar?.classList.contains('active')) {
+      closeDesktopSearch();
+    }
+  });
+
+  // Realizar busca ao pressionar Enter
+  desktopSearchInput?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const searchQuery = (desktopSearchInput as HTMLInputElement).value.trim();
+      if (searchQuery) {
+        window.location.href = `/pesquisa?q=${encodeURIComponent(searchQuery)}`;
       }
     }
   });
@@ -149,7 +251,7 @@
     width: 100%;
     background: #FFFFFFFF;
     border-radius: 0px 0px 0px 0px;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     align-items: end;
     align-content: stretch;
@@ -171,14 +273,14 @@
       width: 100%;
       background: #FFFFFFFF;
       border-radius: 0px;
-      overflow: hidden;
+      overflow: visible;
       display: flex;
       align-items: end;
       align-content: stretch;
       justify-content: center;
       column-gap: 22.5px;
       padding: 13px 85px 13px 85px;
-      flex-direction: row-reverse;
+      flex-direction: row;
       flex-wrap: nowrap;
       border-bottom: none;
       box-shadow: none;
@@ -191,147 +293,6 @@
       background-repeat: no-repeat;
       background-size: cover; /* conforme CSS fornecido */
     }
-
-    /* Garantir oculto no desktop */
-    .hamburger-menu {
-      display: none !important;
-    }
-  }
-
-  /* Menu Hamburger (oculto no desktop) */
-  .hamburger-menu {
-    display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 28px;
-    height: 24px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 60;
-  }
-
-
-  .hamburger-menu span {
-    width: 28px;
-    height: 3px;
-    background-color: #292929;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-  }
-
-  /* Barra de Busca Mobile (oculta no desktop) */
-  .search-bar-mobile {
-    display: none;
-    align-items: center;
-    gap: 8px;
-    background: #F8F9FA;
-    border: 1px solid #E2E8F0;
-    border-radius: 20px;
-    padding: 8px 16px;
-    flex: 1;
-    max-width: 280px;
-    transition: border-color 0.3s ease;
-  }
-
-  .search-bar-mobile:focus-within {
-    border-color: #007bff;
-    background: white;
-  }
-
-  .search-icon-mobile {
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
-  }
-
-  .search-input-mobile {
-    border: none;
-    background: transparent;
-    outline: none;
-    font-family: "Trenda", sans-serif;
-    font-size: 14px;
-    color: #292929;
-    width: 100%;
-    padding: 0;
-  }
-
-  .search-input-mobile::placeholder {
-    color: #94A3B8;
-  }
-
-  /* Menu Mobile Overlay */
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-
-  .mobile-menu.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .mobile-menu-content {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 280px;
-    height: 100vh;
-    background: white;
-    padding: 24px;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    overflow-y: auto;
-  }
-
-  .mobile-menu.active .mobile-menu-content {
-    transform: translateX(0);
-  }
-
-  .close-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #292929;
-  }
-
-  .mobile-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    margin-top: 60px;
-  }
-
-  .mobile-nav-item {
-    font-family: "Trenda", sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: #201D1E;
-    text-decoration: none;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
-    transition: color 0.3s ease;
-  }
-
-  .mobile-nav-item:hover {
-    color: #007bff;
   }
 
   /* LogoLucrinho */
@@ -350,64 +311,26 @@
     text-decoration: none;
   }
 
-  /* INVESTIMENTO */
-  .i-n-v-e-s-t-i-m-e-n-ed7ad00563e1 {
-    width: 107px;
-    height: 14px;
-    flex-shrink: 0;
-    cursor: pointer;
-  }
-  .i-n-v-e-s-t-i-m-e-n-ed7ad00563e1 .root-0 {
-    display: flex;
-    white-space: break-spaces;
-    align-items: flex-start;
-  }
-  .i-n-v-e-s-t-i-m-e-n-ed7ad00563e1 .root-0-paragraph-set-0 {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: inherit;
-    min-width: 100%;
-    margin-right: 1px;
-    vertical-align: top;
-  }
-  .i-n-v-e-s-t-i-m-e-n-ed7ad00563e1 .root-0-paragraph-set-0-paragraph-0 {
-    font-size: 0;
-    line-height: 1.2;
-    margin: 0;
-    text-align: left;
-  }
-  .i-n-v-e-s-t-i-m-e-n-ed7ad00563e1 .root-0-paragraph-set-0-paragraph-0-text-0 {
-    color: rgba(32, 29, 30, 1);
-    text-transform: none;
-    line-break: auto;
-    overflow-wrap: initial;
-    white-space: break-spaces;
-    font-size: 14px;
-    text-rendering: geometricPrecision;
-    caret-color: rgba(32, 29, 30, 1);
+  /* Categorias dinâmicas */
+  .category-link {
     text-decoration: none;
-    letter-spacing: 0px;
-    font-family: "Trenda";
-    font-style: normal;
-    font-weight: 600;
-  }
-  .i-n-v-e-s-t-i-m-e-n-ed7ad00563e1:hover .root-0-paragraph-set-0-paragraph-0-text-0 {
-    color: #007bff;
+    flex-shrink: 0;
   }
 
-  /* FERRAMENTAS */
-  .f-e-r-r-a-m-e-n-t-a-ed7ae65393ab {
-    width: 102px;
+  .category-item {
     height: 14px;
     flex-shrink: 0;
     cursor: pointer;
+    white-space: nowrap;
   }
-  .f-e-r-r-a-m-e-n-t-a-ed7ae65393ab .root-0 {
+  
+  .category-item .root-0 {
     display: flex;
     white-space: break-spaces;
     align-items: flex-start;
   }
-  .f-e-r-r-a-m-e-n-t-a-ed7ae65393ab .root-0-paragraph-set-0 {
+  
+  .category-item .root-0-paragraph-set-0 {
     display: inline-flex;
     flex-direction: column;
     justify-content: inherit;
@@ -415,18 +338,20 @@
     margin-right: 1px;
     vertical-align: top;
   }
-  .f-e-r-r-a-m-e-n-t-a-ed7ae65393ab .root-0-paragraph-set-0-paragraph-0 {
+  
+  .category-item .root-0-paragraph-set-0-paragraph-0 {
     font-size: 0;
     line-height: 1.2;
     margin: 0;
     text-align: left;
   }
-  .f-e-r-r-a-m-e-n-t-a-ed7ae65393ab .root-0-paragraph-set-0-paragraph-0-text-0 {
+  
+  .category-item .root-0-paragraph-set-0-paragraph-0-text-0 {
     color: rgba(32, 29, 30, 1);
     text-transform: none;
     line-break: auto;
     overflow-wrap: initial;
-    white-space: break-spaces;
+    white-space: nowrap;
     font-size: 14px;
     text-rendering: geometricPrecision;
     caret-color: rgba(32, 29, 30, 1);
@@ -435,143 +360,10 @@
     font-family: "Trenda";
     font-style: normal;
     font-weight: 600;
+    transition: color 0.3s ease;
   }
-  .f-e-r-r-a-m-e-n-t-a-ed7ae65393ab:hover .root-0-paragraph-set-0-paragraph-0-text-0 {
-    color: #007bff;
-  }
-
-  /* ECONÔMIA */
-  .e-c-o-n-m-i-a-ed7b03599607 {
-    width: 83px;
-    height: 14px;
-    flex-shrink: 0;
-    cursor: pointer;
-  }
-  .e-c-o-n-m-i-a-ed7b03599607 .root-0 {
-    display: flex;
-    white-space: break-spaces;
-    align-items: flex-start;
-  }
-  .e-c-o-n-m-i-a-ed7b03599607 .root-0-paragraph-set-0 {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: inherit;
-    min-width: 100%;
-    margin-right: 1px;
-    vertical-align: top;
-  }
-  .e-c-o-n-m-i-a-ed7b03599607 .root-0-paragraph-set-0-paragraph-0 {
-    font-size: 0;
-    line-height: 1.2;
-    margin: 0;
-    text-align: left;
-  }
-  .e-c-o-n-m-i-a-ed7b03599607 .root-0-paragraph-set-0-paragraph-0-text-0 {
-    color: rgba(32, 29, 30, 1);
-    text-transform: none;
-    line-break: auto;
-    overflow-wrap: initial;
-    white-space: break-spaces;
-    font-size: 14px;
-    text-rendering: geometricPrecision;
-    caret-color: rgba(32, 29, 30, 1);
-    text-decoration: none;
-    letter-spacing: 0px;
-    font-family: "Trenda";
-    font-style: normal;
-    font-weight: 600;
-  }
-  .e-c-o-n-m-i-a-ed7b03599607:hover .root-0-paragraph-set-0-paragraph-0-text-0 {
-    color: #007bff;
-  }
-
-  /* RENDA EXTRA */
-  .r-e-n-d-a-e-x-t-r-ed7b55ca443d {
-    width: 101px;
-    height: 14px;
-    flex-shrink: 0;
-    cursor: pointer;
-  }
-  .r-e-n-d-a-e-x-t-r-ed7b55ca443d .root-0 {
-    display: flex;
-    white-space: break-spaces;
-    align-items: flex-start;
-  }
-  .r-e-n-d-a-e-x-t-r-ed7b55ca443d .root-0-paragraph-set-0 {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: inherit;
-    min-width: 100%;
-    margin-right: 1px;
-    vertical-align: top;
-  }
-  .r-e-n-d-a-e-x-t-r-ed7b55ca443d .root-0-paragraph-set-0-paragraph-0 {
-    font-size: 0;
-    line-height: 1.2;
-    margin: 0;
-    text-align: left;
-  }
-  .r-e-n-d-a-e-x-t-r-ed7b55ca443d .root-0-paragraph-set-0-paragraph-0-text-0 {
-    color: rgba(32, 29, 30, 1);
-    text-transform: none;
-    line-break: auto;
-    overflow-wrap: initial;
-    white-space: break-spaces;
-    font-size: 14px;
-    text-rendering: geometricPrecision;
-    caret-color: rgba(32, 29, 30, 1);
-    text-decoration: none;
-    letter-spacing: 0px;
-    font-family: "Trenda";
-    font-style: normal;
-    font-weight: 600;
-  }
-  .r-e-n-d-a-e-x-t-r-ed7b55ca443d:hover .root-0-paragraph-set-0-paragraph-0-text-0 {
-    color: #007bff;
-  }
-
-  /* AVALIAÇÕES */
-  .a-v-a-l-i-a-e-s-ed7b861ae7ad {
-    width: 90px;
-    height: 14px;
-    flex-shrink: 0;
-    cursor: pointer;
-  }
-  .a-v-a-l-i-a-e-s-ed7b861ae7ad .root-0 {
-    display: flex;
-    white-space: break-spaces;
-    align-items: flex-start;
-  }
-  .a-v-a-l-i-a-e-s-ed7b861ae7ad .root-0-paragraph-set-0 {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: inherit;
-    min-width: 100%;
-    margin-right: 1px;
-    vertical-align: top;
-  }
-  .a-v-a-l-i-a-e-s-ed7b861ae7ad .root-0-paragraph-set-0-paragraph-0 {
-    font-size: 0;
-    line-height: 1.2;
-    margin: 0;
-    text-align: left;
-  }
-  .a-v-a-l-i-a-e-s-ed7b861ae7ad .root-0-paragraph-set-0-paragraph-0-text-0 {
-    color: rgba(32, 29, 30, 1);
-    text-transform: none;
-    line-break: auto;
-    overflow-wrap: initial;
-    white-space: break-spaces;
-    font-size: 14px;
-    text-rendering: geometricPrecision;
-    caret-color: rgba(32, 29, 30, 1);
-    text-decoration: none;
-    letter-spacing: 0px;
-    font-family: "Trenda";
-    font-style: normal;
-    font-weight: 600;
-  }
-  .a-v-a-l-i-a-e-s-ed7b861ae7ad:hover .root-0-paragraph-set-0-paragraph-0-text-0 {
+  
+  .category-link:hover .root-0-paragraph-set-0-paragraph-0-text-0 {
     color: #007bff;
   }
 
@@ -582,9 +374,168 @@
     height: 15.5px;
     flex-shrink: 0;
     cursor: pointer;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
   }
   .risearch-ed7dc28cca0e:hover path {
     fill: #007bff;
+  }
+  
+  .risearch-ed7dc28cca0e.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* Desktop - Remover margem para ficar próximo às categorias */
+  @media (min-width: 769px) {
+    .risearch-ed7dc28cca0e {
+      margin-left: 0;
+    }
+  }
+
+  /* Search Bar Desktop (expandível) */
+  .desktop-search-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 35px 85px 20px 85px;
+  }
+
+  .desktop-search-bar.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .desktop-search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .desktop-search-bar.active .desktop-search-container {
+    transform: scaleX(1);
+  }
+
+  .desktop-search-icon-inside {
+    position: absolute;
+    left: 16px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .desktop-search-input {
+    width: 100%;
+    padding: 14px 56px 14px 50px;
+    border: 2px solid #D1D5DB;
+    border-radius: 50px;
+    font-size: 15px;
+    font-family: "Trenda", system-ui, -apple-system, sans-serif;
+    font-weight: 500;
+    color: #1F2937;
+    background: #FFFFFF;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+  }
+
+  .desktop-search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+  }
+
+  .desktop-search-input::placeholder {
+    color: #9CA3AF;
+    font-weight: 400;
+  }
+
+  .desktop-search-close {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+    z-index: 1;
+  }
+
+  .desktop-search-close:hover {
+    background-color: #F3F4F6;
+  }
+
+  .desktop-search-close:active {
+    background-color: #E5E7EB;
+  }
+
+  /* Container dos elementos do header */
+  .header-elements {
+    display: flex;
+    align-items: end;
+    gap: 22.5px;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    flex: 1;
+  }
+
+  .header-elements.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* Desktop - Ajuste para header-elements */
+  @media (min-width: 769px) {
+    .header-elements {
+      display: flex;
+      align-items: end;
+      gap: 22.5px;
+      flex: 0 1 auto;
+    }
+  }
+
+  /* Botão Menu Mobile */
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+    width: 33px;
+    height: 33px;
+    flex-shrink: 0;
+  }
+
+  .flowbite-a-eed9965a0050 svg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transform: translate(0px, 0px);
+  }
+
+  .basebackg-eed9965a0051 {
+    display: none;
+  }
+
+  .svgpath-eed9965a0052 {
+    position: relative;
   }
 
   /* Responsive - Mobile */
@@ -593,98 +544,224 @@
       position: relative;
       width: 100%;
       background: #FFFFFFFF;
-      border-radius: 0px;
-      overflow: visible;
+      border-radius: 0px 0px 0px 0px;
+      overflow: hidden;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
+      align-items: start;
+      align-content: stretch;
+      justify-content: start;
+      column-gap: 96px;
+      padding: 10px 10px 10px 10px;
       z-index: 50;
-      flex-direction: row;
+      flex-direction: row-reverse;
       flex-wrap: nowrap;
-      min-height: 54px;
+      flex-grow: 1;
     }
 
-    /* Menu Hamburger - Esquerda */
-    .hamburger-menu {
-      display: flex !important;
-      order: 1;
+    /* Botão Menu Mobile - visível em mobile */
+    .mobile-menu-btn {
+      display: block;
+      position: relative;
+    }
+
+    /* Logo - Centralizado com position absolute */
+    .logo-link {
+      position: absolute;
+      left: 139px;
+      top: 16px;
+      width: 122px;
+      height: 22px;
       flex-shrink: 0;
-      width: 33px;
-      height: 33px;
-      padding: 0;
-      z-index: 60;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* Logo - Centro */
-    .header-ed6d361ee809 > a {
-      position: absolute !important;
-      left: 50% !important;
-      transform: translateX(-50%) !important;
-      top: 50% !important;
-      margin-top: -11px !important;
-      width: 122px !important;
-      height: 22px !important;
-      display: block !important;
-      z-index: 55 !important;
-      order: 2;
     }
 
     .logo-lucrin-ed781b57548d {
-      width: 122px !important;
-      height: 22px !important;
-      background: url(/LogoLucrinho.png) no-repeat center center / contain !important;
-      display: block !important;
+      width: 122px;
+      height: 22px;
+      background: url(/LogoLucrinho.png) no-repeat center center / contain;
+      border-radius: 0px 0px 0px 0px;
     }
-
 
     /* Esconder elementos desktop em mobile */
-    .i-n-v-e-s-t-i-m-e-n-ed7ad00563e1,
-    .f-e-r-r-a-m-e-n-t-a-ed7ae65393ab,
-    .e-c-o-n-m-i-a-ed7b03599607,
-    .r-e-n-d-a-e-x-t-r-ed7b55ca443d,
-    .a-v-a-l-i-a-e-s-ed7b861ae7ad,
-    .risearch-ed7dc28cca0e {
+    .category-link,
+    .risearch-ed7dc28cca0e,
+    .desktop-search-bar {
       display: none !important;
-    }
-
-    /* Mostrar menu mobile overlay */
-    .mobile-menu {
-      display: block;
     }
   }
 
   /* Mobile muito pequeno (ajuste adicional) */
   @media (max-width: 375px) {
     .header-ed6d361ee809 {
-      padding: 10px 12px;
-      gap: 8px;
+      padding: 10px 10px;
+      column-gap: 48px;
     }
 
-    .logo-lucrin-ed781b57548d {
-      width: 75px;
-      height: 16px;
+    .logo-link {
+      left: 50%;
+      transform: translateX(-50%);
+      top: 16px;
     }
+  }
 
-    .search-bar-mobile {
-      padding: 6px 12px;
-    }
+  /* Overlay da Sidebar */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
 
-    .search-input-mobile {
-      font-size: 13px;
-    }
+  .sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
 
-    .hamburger-menu {
-      width: 24px;
-      height: 20px;
-    }
+  /* Sidebar Mobile */
+  .mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100%;
+    background: #FFFFFF;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
 
-    .hamburger-menu span {
-      width: 24px;
-      height: 2.5px;
+  .mobile-sidebar.active {
+    left: 0;
+  }
+
+  /* Cabeçalho da Sidebar */
+  .sidebar-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .sidebar-close {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+  }
+
+  .sidebar-close:hover {
+    background-color: #F3F4F6;
+  }
+
+  .sidebar-close:active {
+    background-color: #E5E7EB;
+  }
+
+  /* Search Bar da Sidebar */
+  .sidebar-search {
+    padding: 16px;
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 12px 12px 12px 44px;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: "Trenda", system-ui, -apple-system, sans-serif;
+    color: #1F2937;
+    background: #FFFFFF;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .search-input::placeholder {
+    color: #9CA3AF;
+  }
+
+  /* Categorias da Sidebar */
+  .sidebar-categories {
+    padding: 16px;
+  }
+
+  .sidebar-categories-title {
+    font-family: "Trenda", system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 12px 0;
+    padding: 0 8px;
+  }
+
+  .sidebar-categories-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sidebar-category-item {
+    margin-bottom: 4px;
+  }
+
+  .sidebar-category-link {
+    display: block;
+    padding: 12px 16px;
+    font-family: "Trenda", system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1F2937;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .sidebar-category-link:hover {
+    background-color: #F3F4F6;
+    color: #3B82F6;
+  }
+
+  .sidebar-category-link:active {
+    background-color: #E5E7EB;
+  }
+
+  /* Esconder sidebar em desktop */
+  @media (min-width: 769px) {
+    .mobile-sidebar,
+    .sidebar-overlay {
+      display: none;
     }
   }
 </style>
